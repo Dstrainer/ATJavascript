@@ -26,7 +26,11 @@ AJS.$(document).ready(function() {
 */
 function determineIssueType() {
   issuetype = document.getElementById('issuetype');
-  return issuetype.options[issuetype.selectedIndex].text;
+  if (issuetype != null) { 
+    return issuetype.options[issuetype.selectedIndex].text;
+  } else {
+    return "Unknown";
+  }
 }
 
 /**
@@ -61,7 +65,6 @@ function populateSummary() {
   summary = document.getElementById('summary');
   if (summary != null) { 
     summary.onfocus = function() {
-      if (summary.value === '') {
 	var issueType = determineIssueType();
         switch (issueType) {
           case "COI Review":
@@ -80,7 +83,6 @@ function populateSummary() {
               summary.value = generateDefaultSummaryString();
             break;
         }
-      }
     };
   }
 }
