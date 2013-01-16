@@ -152,11 +152,7 @@ function populatePreAwardAdmin() {
   if ((preAwardAdminInBanner != null) && (preAwardAdminUserPicker != null) ){
     preAwardAdminInBanner.onchange=function() {
       if (preAwardAdminInBanner.value != '') {
-        if (preAwardAdminUserPicker.value === '') {
           preAwardAdminUserPicker.value = preAwardAdminInBanner.value;
-        } else {
-          preAwardAdminUserPicker.value = preAwardAdminUserPicker.value + ", " + preAwardAdminInBanner.value;
-        }
       }
     };
   }
