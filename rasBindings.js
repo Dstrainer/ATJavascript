@@ -118,16 +118,24 @@ function populateProposalDataRequestor() {
 */
 function populateProjectPersonnel() {
   dbBackedPIPid = document.getElementById('customfield_10401');
+  dbBackedCoPIPids = document.getElementById('customfield_14006');
   projectPersonnel = document.getElementById('customfield_10400');
 
   if (dbBackedPIPid != null) { 
     dbBackedPIPid.onchange=function() {
       if (dbBackedPIPid.value != '') {
+        // add PI
         if (projectPersonnel.value === '') {
           projectPersonnel.value = dbBackedPIPid.value;
         } else {
           projectPersonnel.value = projectPersonnel.value + ", " + dbBackedPIPid.value;
         }
+        // add Co-PIs
+        if (dbBackedCoPIPids != null) { 
+          for (var i=0;i<dbBackedCoPIPids.options.length;i++) {
+            projectPersonnel.value = projectPersonnel.value + ", " + dbBackedCoPIPids.options[i].value;
+          }
+        }  
       }
     };
   }
