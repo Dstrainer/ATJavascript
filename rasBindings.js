@@ -79,6 +79,9 @@ function populateSummary() {
           case "OESRC Review":
               summary.value = "OESRC Review";
             break;
+          case "Solvency Check":
+              summary.value = "Solvency Check";
+            break;
           default:
               summary.value = generateDefaultSummaryString();
             break;
