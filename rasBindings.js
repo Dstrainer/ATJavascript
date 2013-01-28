@@ -16,6 +16,7 @@ AJS.$(document).ready(function() {
     populatePreAwardAdmin();
     defineOrgCodeOnChange();
     defineTransitionCommentOnFocus();
+    colorFieldLabels();
   });
 
 });
@@ -113,7 +114,7 @@ function populateProposalDataRequestor() {
   currentUser = findMetaContentByName("ajs-remote-user");
   if ((dataRequestor != null) && (currentUser != null)) {
     dataRequestor.value = currentUser;
-    dataRequestor.disabled = true;
+    //dataRequestor.disabled = true;
   }
 }
 
@@ -242,3 +243,35 @@ function defineTransitionCommentOnFocus() {
   }
 
 }
+
+/**
+ * @desc set the labels for the various issue fields to particular colors 
+ * @author lcovey
+*/
+function colorFieldLabels() {
+
+  //scan for labels, and assign the label to its form element;
+  var labels = document.getElementsByTagName('LABEL');
+  for (var i=0; i < labels.length; i++) {
+    if (labels[i].htmlFor != '') {
+      var elem = document.getElementById(labels[i].htmlFor);
+      if (elem) {
+        elem.label = labels[i];
+      } 
+    }
+  }
+
+  setLabelColor('customfield_10006','#660000'); //sponsor name
+}
+
+/**
+ * @desc set a field's label to a particular color
+ * @author lcovey
+*/
+function setLabelColor(fieldId,color) {
+  field = document.getElementById(fieldId);
+  if (field) {
+    field.label.style.color = color;
+  }  
+}
+
