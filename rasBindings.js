@@ -131,11 +131,7 @@ function populateProjectPersonnel() {
     dbBackedPIPid.onchange=function() {
       if (dbBackedPIPid.value != '') {
         // add PI
-        if (projectPersonnel.value === '') {
-          projectPersonnel.value = dbBackedPIPid.value;
-        } else {
-          projectPersonnel.value = projectPersonnel.value + ", " + dbBackedPIPid.value;
-        }
+        projectPersonnel.value = dbBackedPIPid.value;
         // add Co-PIs
         if (dbBackedCoPIPids != null) { 
           for (var i=0;i<dbBackedCoPIPids.options.length;i++) {
@@ -177,11 +173,7 @@ function defineOrgCodeOnChange() {
     orgCode.onchange=function() {
       //Populate departmentContacts
       if (departmentContacts !== null) {
-        if (departmentContacts.value == '') {
           departmentContacts.value = orgCode.value;
-        } else {
-          departmentContacts.value = departmentContacts.value + ", " + orgCode.value;
-        }
       }
 
       //Populate department
