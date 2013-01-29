@@ -14,6 +14,7 @@ AJS.$(document).ready(function() {
     populateProposalDataRequestor();
     populateProjectPersonnel();
     populatePreAwardAdmin();
+    parseProposalAttributes();
     defineOrgCodeOnChange();
     defineTransitionCommentOnFocus();
     colorFieldLabels();
@@ -158,6 +159,142 @@ function populatePreAwardAdmin() {
       }
     };
   }
+}
+
+/**
+ * @desc parses the attributes pulled from banner and interprets each attribute as appropriate
+ * @author lcovey
+*/
+function parseProposalAttributes() {
+  attributesSelectList = document.getElementById('customfield_14200');
+
+  if (attributesSelectList != null) {
+    attributesSelectList.onchange=function() {
+      //set attribute defaults in case they are not present on this proposal
+      var costShare="";
+      var discoveryDomain="";
+      var fcoi="";
+      var irb="";
+      var iacuc="";
+      var ibc="";
+      for (var i=0;i<attributesSelectList.options.length;i++) {
+        var attributeCode = attributesSelectList.options[i].value.match(/\((.*)\)/);
+        var attributeValue = attributesSelectList.options[i].value.match(/\=(.*)$/);
+        if ((attributeCode[1] != null) && (attributeValue[1] != null) ) {
+          switch (attributeCode[1]) {
+            case "CS":
+                costShare = attributeValue[1];
+              break;
+            case "DISDOM":
+                discoveryDomain = attributeValue[1];
+              break;
+            case "FCOI":
+                fcoi = attributeValue[1];
+              break;
+            case "HS":
+                irb = attributeValue[1];
+              break;
+            case "VA":
+                iacuc = attributeValue[1];
+              break;
+            case "DNA":
+                ibc = attributeValue[1];
+              break;
+          }
+        }
+      }
+      //now that we've parsed through the attributes, set them as appropriate
+      populateCostShare(costShare);
+      populateDiscoveryDomain(discoveryDomain);
+      populateFCOI(fcoi);
+      populateIRB(irb);
+      populateIACUC(iacuc);
+      populateIBC(ibc); 
+    };
+  }
+}
+function populateCostShare(attributeValue) {
+  costShareCombo = document.getElementById('customfield_14201');
+  if (costShareCombo) { 
+    //if the costShare attribute was set to anything at all, there is costshare
+    if (attributeValue == "") {
+      costShareCombo.value="-1"; //None
+    } else {
+      costShareCombo.value="12700"; //Yes
+    }
+  } 
+}
+function populateDiscoveryDomain(attributeValue) {
+  discoveryDomainCombo = document.getElementById('customfield_10526');
+  if (discoveryDomainCombo != null) {
+    if (attributeValue == "") { 
+      discoveryDomainCombo.value="-1";
+    } else {
+      for(var i=0; i<discoveryDomainCombo.options.length; i++) {
+        if (discoveryDomainCombo.options[i].text.indexOf(attributeValue) != "-1") {
+          discoveryDomainCombo.value = discoveryDomainCombo.options[i].value;
+        } else {
+        }
+      }
+    }
+  }
+}
+function populateFCOI(attributeValue) {
+  fcoiFieldOTH = document.getElementById('customfield_11902-2');
+  fcoiFieldPHS = document.getElementById('customfield_11902-1');
+
+  // The FCOI checkbox is kinda weird.  They didn't want a none, so they put two checkboxes that act
+  // as radio buttons.  Therefore, setting one to true means setting the other to false.
+  if ((fcoiFieldOTH) && (fcoiFieldPHS)) {
+    if (attributeValue === "OTH") {
+      fcoiFieldPHS.checked = false;
+      fcoiFieldOTH.checked = true;
+    } else if (attributeValue === "PHS") {
+      fcoiFieldOTH.checked = false;
+      fcoiFieldPHS.checked = true;
+    } else {
+      fcoiFieldOTH.checked = false;
+      fcoiFieldPHS.checked = false;
+    }
+  }
+
+}
+function populateIRB(attributeValue) {
+  irbCheckbox = document.getElementById('customfield_11903-1');
+  if (irbCheckbox != null) {
+    if ((attributeValue === "A") || (attributeValue === "Y")) {
+      irbCheckbox.checked = true;
+    } else {
+      irbCheckbox.checked = false;
+    }
+  }  
+}
+
+function populateIACUC(attributeValue) {
+  iacucCheckbox = document.getElementById('customfield_11904-1');
+
+  if (iacucCheckbox != null) {
+    if ((attributeValue === "A") || (attributeValue === "Y")) {
+      iacucCheckbox.checked = true;
+    } else {
+      iacucCheckbox.checked = false;
+    }
+
+  }
+}
+
+function populateIBC(attributeValue) {
+  ibcCheckbox = document.getElementById('customfield_11905-1');
+
+  if (ibcCheckbox != null) {
+    if ((attributeValue == "A") || (attributeValue == "Y")) {
+      ibcCheckbox.checked = true;
+    } else {
+      ibcCheckbox.checked = false;
+    }
+
+  }
+
 }
 /**
  * @desc define the orgCode's onchange event, autopopulating both departmentContacts and department
