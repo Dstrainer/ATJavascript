@@ -18,6 +18,7 @@ AJS.$(document).ready(function() {
     defineOrgCodeOnChange();
     defineTransitionCommentOnFocus();
     colorFieldLabels();
+    createLinkIntoPANSystem();
   });
 
 });
@@ -304,6 +305,7 @@ function defineOrgCodeOnChange() {
   orgCode = document.getElementById('customfield_10500');
   departmentContacts = document.getElementById('customfield_10501');
   department = document.getElementById('customfield_10007');
+  responsibleDepartment = document.getElementById('customfield_14400');
 
   if (orgCode !== null) {
 
@@ -331,7 +333,6 @@ function defineOrgCodeOnChange() {
           }
         }
       }
-
     };
   }
 }
@@ -404,3 +405,60 @@ function setLabelColor(fieldId,color) {
   }  
 }
 
+/**
+ * @desc create a link into the PAN system with some variables set in the query string
+ * @author lcovey
+*/
+function createLinkIntoPANSystem() {
+  var confirmation = document.getElementById("customfield_14404-1");
+  
+  if (confirmation != null) {
+    var panLink = document.getElementById("panURL");
+    if (panLink != null) {
+      
+      var queryString = "";
+
+      var proposalNumber = document.getElementById("customfield_10102");
+      if (proposalNumber != null) {
+        if (proposalNumber.value != "") {
+          queryString= queryString + "&proposalNumber="+proposalNumber.value;
+        }
+      }
+
+      var processor = document.getElementById("customfield_10517");
+      if (processor != null) {
+	if (processor.value != "") {
+          queryString= queryString + "&processorPID="+processor.value;
+        }
+      }
+
+      var preAwardAdmin = document.getElementById("customfield_10010");
+      if (preAwardAdmin != null) {
+        if (preAwardAdmin.value != "") {
+          queryString= queryString + "&preAwardAdmin="+preAwardAdmin.value;
+        } 
+      }
+
+      var postAwardAdmin = document.getElementById("customfield_10109");
+      if (postAwardAdmin != null) {
+        if (postAwardAdmin.value != "") {
+          queryString=queryString + "&postAwardAdmin="+postAwardAdmin.value;
+        }
+      }
+
+      var subcontractor = document.getElementById("customfield_10911-1");
+      if (subcontractor != null) {
+        if (subcontractor.checked) {
+          queryString= queryString + "&is_subcontractor=1";
+        }
+      }
+
+      var returnLink = document.getElementById("key-val");
+      if (returnLink != null) {
+        queryString= queryString + "&agreement="+returnLink.href;
+      }
+
+      panLink.href = panLink.href + queryString;
+    }
+  } 
+}
