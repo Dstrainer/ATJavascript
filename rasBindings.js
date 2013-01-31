@@ -502,7 +502,7 @@ function createLinkIntoPANSystem() {
 
       var returnLink = document.getElementById("key-val");
       if (returnLink != null) {
-        queryString= queryString + "&agreement="+returnLink.href;
+        queryString= queryString + "&agreement="+returnLink.text;
       }
 
       panLink.href = panLink.href + queryString;
