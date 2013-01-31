@@ -463,8 +463,10 @@ function createLinkIntoPANSystem() {
 
     //we need to move the description to be before the checkbox, instead of after it
     var confirmationDescription = document.getElementById("panInitiatedDescription");
-    var confirmationParentDiv = confirmation.parentNode;
-    confirmationParentDiv.insertBefore(confirmationDescription,confirmation);
+    if (confirmationDescription != null) {
+      var confirmationParentDiv = confirmation.parentNode;
+      confirmationParentDiv.insertBefore(confirmationDescription,confirmation);
+    }
 
     //now create the URL that goes into the PAN system
     var panLink = document.getElementById("panURL");
