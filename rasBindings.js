@@ -488,13 +488,6 @@ function createLinkIntoPANSystem() {
         }
       }
 
-      var preAwardAdmin = document.getElementById("customfield_10010");
-      if (preAwardAdmin != null) {
-        if (preAwardAdmin.value != "") {
-          queryString= queryString + "&preAwardAdmin="+preAwardAdmin.value;
-        } 
-      }
-
       var postAwardAdmin = document.getElementById("customfield_10109");
       if (postAwardAdmin != null) {
         if (postAwardAdmin.value != "") {
