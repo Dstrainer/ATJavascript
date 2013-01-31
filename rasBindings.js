@@ -178,6 +178,7 @@ function parseProposalAttributes() {
       var irb="";
       var iacuc="";
       var ibc="";
+      var clinicalTrials="";
       for (var i=0;i<attributesSelectList.options.length;i++) {
         var attributeCode = attributesSelectList.options[i].value.match(/\((.*)\)/);
         var attributeValue = attributesSelectList.options[i].value.match(/\=(.*)$/);
@@ -201,6 +202,9 @@ function parseProposalAttributes() {
             case "DNA":
                 ibc = attributeValue[1];
               break;
+            case "CT":
+                clinicalTrials = attributeValue[1];
+              break;
           }
         }
       }
@@ -210,10 +214,16 @@ function parseProposalAttributes() {
       populateFCOI(fcoi);
       populateIRB(irb);
       populateIACUC(iacuc);
-      populateIBC(ibc); 
+      populateIBC(ibc);
+      populateClinicalTrials(clinicalTrials); 
     };
   }
 }
+
+/**
+ * @desc set the Cost Share dropdown based on its consumed Banner attributes
+ * @author lcovey
+*/
 function populateCostShare(attributeValue) {
   costShareCombo = document.getElementById('customfield_14201');
   if (costShareCombo) { 
@@ -225,6 +235,11 @@ function populateCostShare(attributeValue) {
     }
   } 
 }
+
+/**
+ * @desc set the Discovery Domain dropdown based on its consumed Banner attributes
+ * @author lcovey
+*/
 function populateDiscoveryDomain(attributeValue) {
   discoveryDomainCombo = document.getElementById('customfield_10526');
   if (discoveryDomainCombo != null) {
@@ -240,6 +255,11 @@ function populateDiscoveryDomain(attributeValue) {
     }
   }
 }
+
+/**
+ * @desc set the FCOI checkbox based on its consumed Banner attributes
+ * @author lcovey
+*/
 function populateFCOI(attributeValue) {
   fcoiFieldOTH = document.getElementById('customfield_11902-2');
   fcoiFieldPHS = document.getElementById('customfield_11902-1');
@@ -260,6 +280,11 @@ function populateFCOI(attributeValue) {
   }
 
 }
+
+/**
+ * @desc set the IRB checkbox based on its consumed Banner attributes
+ * @author lcovey
+*/
 function populateIRB(attributeValue) {
   irbCheckbox = document.getElementById('customfield_11903-1');
   if (irbCheckbox != null) {
@@ -271,6 +296,10 @@ function populateIRB(attributeValue) {
   }  
 }
 
+/**
+ * @desc set the IACUC checkbox based on its consumed Banner attributes
+ * @author lcovey
+*/
 function populateIACUC(attributeValue) {
   iacucCheckbox = document.getElementById('customfield_11904-1');
 
@@ -284,6 +313,10 @@ function populateIACUC(attributeValue) {
   }
 }
 
+/**
+ * @desc set the IBC checkbox based on its consumed Banner attributes
+ * @author lcovey
+*/
 function populateIBC(attributeValue) {
   ibcCheckbox = document.getElementById('customfield_11905-1');
 
@@ -295,7 +328,21 @@ function populateIBC(attributeValue) {
     }
 
   }
+}
 
+/**
+ * @desc set the Clinical Trials checkbox based on its consumed Banner attributes
+ * @author lcovey
+*/
+function populateClinicalTrials(attributeValue) {
+  clinicalTrialsCheckbox = document.getElementById('customfield_14300-1');
+  if (clinicalTrialsCheckbox != null) {
+    if ((attributeValue === "A") || (attributeValue === "Y")) {
+      clinicalTrialsCheckbox.checked = true;
+    } else {
+      clinicalTrialsCheckbox.checked = false;
+    }
+  } 
 }
 /**
  * @desc define the orgCode's onchange event, autopopulating both departmentContacts and department
