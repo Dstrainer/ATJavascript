@@ -438,18 +438,72 @@ function colorFieldLabels() {
     }
   }
 
-  setLabelColor('customfield_10006','#660000'); //sponsor name
+  labelsToColor = ["customfield_10209","customfield_10006","customfield_11623","customfield_10502","customfield_10212","customfield_10105",
+                   "customfield_10003","customfield_10500","customfield_10109","customfield_10523","customfield_10525","customfield_10524",
+                   "customfield_10526","customfield_10902","customfield_10528","customfield_10531","customfield_10102","customfield_14600",
+                   "customfield_10004","customfield_11902","customfield_10831","customfield_10812","customfield_11903","customfield_11904",
+                   "customfield_10816","customfield_11905","customfield_10820","customfield_10825","customfield_14100","customfield_14002",
+                   "customfield_10714","customfield_12105","customfield_10612","customfield_10611","customfield_10900","customfield_10901",
+                   "customfield_10903","customfield_10904","customfield_10906","customfield_10531","customfield_10907","customfield_10908",
+                   "customfield_10910","customfield_12107","customfield_14102","customfield_14202","customfield_14300","customfield_14500",
+                   "customfield_10924","customfield_10925","customfield_10926","customfield_10927","customfield_10928","customfield_14005",
+                   "customfield_10930","customfield_10932","customfield_14201","customfield_14004","customfield_11907","customfield_10918",
+                   "customfield_10901","customfield_10920","customfield_11906","customfield_11908","customfield_10917","customfield_10923",
+                   "customfield_10921","customfield_10916","customfield_10919","customfield_12003","customfield_13165","customfield_12004",
+                   "customfield_12005","customfield_13159","customfield_13160","customfield_13161","customfield_13162","customfield_13163",
+                   "customfield_13164","customfield_12006","customfield_13150","customfield_12100","customfield_12101","customfield_13144",
+                   "customfield_13145","customfield_13146","customfield_13147","customfield_13148","customfield_13149","customfield_12102",
+                   "customfield_13157","customfield_12103","customfield_12104","customfield_13151","customfield_13152","customfield_13153",
+                   "customfield_13158","customfield_13155","customfield_13156","customfield_12200","customfield_13200","customfield_12201",
+                   "customfield_12202","customfield_13194","customfield_13195","customfield_13196","customfield_13197","customfield_13198",
+                   "customfield_13199","customfield_12601","customfield_12600","customfield_12203","customfield_13337","customfield_12204",
+                   "customfield_12205","customfield_13185","customfield_13187","customfield_13188","customfield_13189","customfield_13335",
+                   "customfield_13336","customfield_12206","customfield_13193","customfield_12207","customfield_12208","customfield_13182",
+                   "customfield_13183","customfield_13184","customfield_13190","customfield_13191","customfield_13192","customfield_12209",
+                   "customfield_13179","customfield_12210","customfield_12211","customfield_13173","customfield_13174","customfield_13181",
+                   "customfield_13176","customfield_13177","customfield_13178","customfield_12300","customfield_13207","customfield_12301",
+                   "customfield_12302","customfield_13201","customfield_13202","customfield_13203","customfield_13204","customfield_13205",
+                   "customfield_13206","customfield_12400","customfield_13214","customfield_12401","customfield_12402","customfield_13208",
+                   "customfield_13209","customfield_13210","customfield_13211","customfield_13212","customfield_13213","customfield_12405",
+                   "customfield_12406","customfield_12407","customfield_13300","customfield_13301","customfield_13302","customfield_13303",
+                   "customfield_13304","customfield_13305","customfield_13306","customfield_12408","customfield_12409","customfield_12410",
+                   "customfield_13307","customfield_13308","customfield_13309","customfield_13310","customfield_13311","customfield_13312",
+                   "customfield_13313","customfield_12411","customfield_12412","customfield_12413","customfield_13314","customfield_13315",
+                   "customfield_13316","customfield_13317","customfield_13318","customfield_13319","customfield_13320","customfield_12500",
+                   "customfield_13172","customfield_12501","customfield_12502","customfield_13166","customfield_13167","customfield_13168",
+                   "customfield_13169","customfield_13170","customfield_13171","customfield_12503","customfield_13334","customfield_12504",
+                   "customfield_12505","customfield_13328","customfield_13329","customfield_13330","customfield_13331","customfield_13332",
+                   "customfield_13333","customfield_11004","customfield_12912","customfield_11601","customfield_11712","customfield_12902",
+                   "customfield_12903","customfield_12904","customfield_12905","customfield_12906","customfield_12907","customfield_11008",
+                   "customfield_13142","customfield_11608","customfield_11718","customfield_13136","customfield_13137","customfield_13138",
+                   "customfield_13139","customfield_13140","customfield_13141","customfield_11007","customfield_13135","customfield_11607",
+                   "customfield_11717","customfield_13129","customfield_13130","customfield_13131","customfield_13132","customfield_13133",
+                   "customfield_13134","customfield_13120","customfield_11605","customfield_11713","customfield_13113","customfield_13114",
+                   "customfield_13115","customfield_13117","customfield_13118","customfield_13119","customfield_13327","customfield_12403",
+                   "customfield_12404","customfield_13321","customfield_13322","customfield_13323","customfield_13324","customfield_13325",
+                   "customfield_13004","customfield_13326","customfield_12000","customfield_11710","customfield_12916","customfield_12917",
+                   "customfield_12918","customfield_13001","customfield_13002","customfield_13003","customfield_13011","customfield_12007",
+                   "customfield_12008","customfield_13005","customfield_13006","customfield_13007","customfield_13008","customfield_13009",
+                   "customfield_13010","customfield_13112","customfield_11709","customfield_11715","customfield_13106","customfield_13107",
+                   "customfield_13108","customfield_13109","customfield_13110","customfield_13111","customfield_13105","customfield_11708",
+                   "customfield_11714","customfield_13012","customfield_13100","customfield_13101","customfield_13102","customfield_13103",
+                   "customfield_13104" ];
+  setLabelColor(labelsToColor,'#660000'); //sponsor name
 }
 
 /**
- * @desc set a field's label to a particular color
+ * @desc set a particular color for a given array of fields's labels
  * @author lcovey
 */
-function setLabelColor(fieldId,color) {
-  field = document.getElementById(fieldId);
-  if (field) {
-    field.label.style.color = color;
-  }  
+function setLabelColor(fields,color) {
+
+  for (var i=0; i < fields.length;i++) {
+ 
+    field = document.getElementById(fields[i]);
+    if (field) {
+      field.label.style.color = color;
+    }  
+  }
 }
 
 /**
@@ -499,6 +553,13 @@ function createLinkIntoPANSystem() {
       if (subcontractor != null) {
         if (subcontractor.checked) {
           queryString= queryString + "&is_subcontractor=1";
+        }
+      }
+
+      var revisionNumber = document.getElementById("customfield_14600");
+      if (revisionNumber != null) {
+        if (revisionNumber.value != "") {
+          queryString=queryString + "&revisionNumber="+revisionNumber.value;
         }
       }
 
