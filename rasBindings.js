@@ -18,6 +18,7 @@ AJS.$(document).ready(function() {
     defineOrgCodeOnChange();
     defineTransitionCommentOnFocus();
     colorFieldLabels();
+    colorFieldsetLegends();
     createLinkIntoPANSystem();
   });
 
@@ -488,7 +489,9 @@ function colorFieldLabels() {
                    "customfield_13108","customfield_13109","customfield_13110","customfield_13111","customfield_13105","customfield_11708",
                    "customfield_11714","customfield_13012","customfield_13100","customfield_13101","customfield_13102","customfield_13103",
                    "customfield_13104" ];
-  setLabelColor(labelsToColor,'#660000'); //sponsor name
+
+  setLabelColor(labelsToColor,'#660000'); 
+
 }
 
 /**
@@ -503,6 +506,52 @@ function setLabelColor(fields,color) {
     if (field) {
       field.label.style.color = color;
     }  
+  }
+}
+
+/**
+ * @desc  set the legends for the various issue fieldsets to particular colors
+ * @author lcovey
+*/
+function colorFieldsetLegends() {
+
+  //scan for legend tag, and assign the legend to its fieldset parent element;
+  var legends = document.getElementsByTagName('LEGEND');
+  for (var i=0; i < legends.length; i++) {
+    if (legends[i].parentNode != null) {
+      var elem = legends[i].parentNode;
+      elem.legend = legends[i];
+    }
+  }
+
+  legendsToColor = ["customfield_11006-1","customfield_14100-1","customfield_14002-1","customfield_11902-1","customfield_10831-1",
+                    "customfield_10904-1","customfield_10908-1","customfield_10910-1","customfield_12107-1","customfield_14300-1",
+                    "customfield_11906-1","customfield_10714-1","customfield_10528-1","customfield_11903-1","customfield_11904-1",
+                    "customfield_11905-1","customfield_10925-1","customfield_14005-1","customfield_10926-1","customfield_10932-1",
+                    "customfield_14004-1","customfield_13128-1","customfield_11006-1","customfield_11606-1","customfield_11716-1",
+                    "customfield_13122-1","customfield_13123-1","customfield_13124-1","customfield_13125-1","customfield_13126-1",
+                    "customfield_13127-1"];
+
+  setLegendColor(legendsToColor,'#660000');
+}
+
+/**
+ * @desc set the particular color for a given array of fieldset legends
+ * @author lcovey
+*/
+function setLegendColor(fields,color) {
+
+  for (var i=0; i < fields.length;i++) {
+    field = document.getElementById(fields[i]);
+   if (field) {
+     checkboxDiv = field.parentNode;
+     if (checkboxDiv) {
+       fieldSet = checkboxDiv.parentNode;
+       if (fieldSet) {
+         fieldSet.legend.childNodes[0].style.color = color;  
+       }
+     }
+   }
   }
 }
 
