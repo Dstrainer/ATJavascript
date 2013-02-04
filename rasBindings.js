@@ -20,6 +20,7 @@ AJS.$(document).ready(function() {
     colorFieldLabels();
     colorFieldsetLegends();
     createLinkIntoPANSystem();
+    changeNoneOptionsToBlanks()
   });
 
 });
@@ -160,6 +161,13 @@ function populateSummary() {
           case "Legal (General Counsel)":
               summary.value = "Legal (General Counsel)";
             break;
+          case "Budget":
+              summary.value = "Budget";
+            break;
+          case "Vendor/Subrecipient Form":
+              summary.value = "Vendor/Subrecipient Form";
+            break;
+
           case "RFP Review":
               summary.value = generateRFPReviewSummaryString();
             break;
@@ -701,3 +709,40 @@ function createLinkIntoPANSystem() {
     }
   } 
 }
+
+/**
+ * @desc Change the 'None' option to blank spaces since JIRA doesn't allow you to remove the None option
+ * @author lcovey
+*/
+function changeNoneOptionsToBlanks() {
+
+  fieldsToChange = ["customfield_10101","customfield_10525","customfield_10523","customfield_10902","customfield_10605","customfield_10607",
+                    "customfield_10610","customfield_10613","customfield_10800","customfield_10806","customfield_10822","customfield_10827",
+                    "customfield_10700","customfield_10702","customfield_10704","customfield_10708","customfield_10717","customfield_10900",
+                    "customfield_10901","customfield_10903","customfield_10906","customfield_10907","customfield_14500","customfield_14102",
+                    "customfield_10928","customfield_10930","customfield_11004","customfield_12912","customfield_11601","customfield_11712",
+                    "customfield_12902","customfield_12903","customfield_12904","customfield_12905","customfield_12906","customfield_12907",
+                    "customfield_10917","customfield_10918","customfield_10920","customfield_10921"];
+
+  overrideOption(fieldsToChange,"-1","");
+}
+
+/**
+ * @desc Takes an array of select fields and changes a given value's text 
+ * @author lcovey
+*/
+function overrideOption(fields,whichValue,updatedText) {
+
+  for (var i=0; i < fields.length;i++) {
+    field = document.getElementById(fields[i]);
+   if (field) {
+     for (var j = 0; j < field.options.length; j++) {
+       if (field.options[j].value == whichValue) {
+         field.options[j].text = updatedText;
+       }
+     }
+   }
+  }
+
+}
+
