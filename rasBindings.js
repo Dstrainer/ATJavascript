@@ -62,6 +62,50 @@ function generateDefaultSummaryString() {
 }
 
 /**
+ * @desc generate the Other Agreement summary value
+ * @author lcovey
+*/
+function generateOtherAgreementSummaryString() {
+  piFname = document.getElementById('customfield_10105');
+  piLname = document.getElementById('customfield_10003');
+  sponsorName = document.getElementById('customfield_10006');
+  otherType = document.getElementById('customfield_10110');
+
+  var summaryString = "";
+  if (otherType != null) {
+    summaryString = otherType.options[otherType.selectedIndex].text + ": ";
+  }
+  if ((piLname != null) && (piFname != null)) {
+    summaryString = summaryString + piLname.value + ", " + piFname.value;
+  }
+  if (sponsorName != null) {
+    summaryString = summaryString + " - " + sponsorName.value;
+  }
+
+  return summaryString;
+}
+
+/**
+ * @desc generate the RFP Review summary value
+ * @author lcovey
+*/
+function generateRFPReviewSummaryString() {
+  piFname = document.getElementById('customfield_10105');
+  piLname = document.getElementById('customfield_10003');
+  sponsorName = document.getElementById('customfield_10006');
+
+  var summaryString = "RFP Review: ";
+  if ((piLname != null) && (piFname != null)) {
+    summaryString = summaryString + piLname.value + ", " + piFname.value;
+  }
+  if (sponsorName != null) {
+    summaryString = summaryString + " - " + sponsorName.value;
+  }
+
+  return summaryString;
+}
+
+/**
  * @desc autopopulates the summary field with the pi's pid when the summary receives focus
  * @author lcovey
 */
@@ -115,6 +159,12 @@ function populateSummary() {
             break;
           case "Legal (General Counsel)":
               summary.value = "Legal (General Counsel)";
+            break;
+          case "RFP Review":
+              summary.value = generateRFPReviewSummaryString();
+            break;
+          case "Other Agreement":
+              summary.value = generateOtherAgreementSummaryString();
             break;
           default:
               summary.value = generateDefaultSummaryString();
