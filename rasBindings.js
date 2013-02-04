@@ -86,6 +86,36 @@ function populateSummary() {
           case "Solvency Check":
               summary.value = "Solvency Check";
             break;
+          case "VTARC":
+              summary.value = "VTARC";
+            break;
+          case "Approval/Review":
+              summary.value = "Approval/Review";
+            break;
+          case "Environment Health and Safety":
+              summary.value = "Environment Health and Safety";
+            break;
+          case "IACUC Review":
+              summary.value = "IACUC Review";
+            break;
+          case "Legal (OSP)":
+              summary.value = "Legal (OSP)";
+            break;
+          case "Other":
+              summary.value = "Other";
+            break;
+          case "PI":
+              summary.value = "PI";
+            break;
+          case "Sponsor":
+              summary.value = "Sponsor";
+            break;
+          case "VT Foundation":
+              summary.value = "VT Foundation";
+            break;
+          case "Legal (General Counsel)":
+              summary.value = "Legal (General Counsel)";
+            break;
           default:
               summary.value = generateDefaultSummaryString();
             break;
