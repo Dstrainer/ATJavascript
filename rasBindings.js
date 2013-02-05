@@ -577,7 +577,7 @@ function colorFieldLabels() {
                    "customfield_13010","customfield_13112","customfield_11709","customfield_11715","customfield_13106","customfield_13107",
                    "customfield_13108","customfield_13109","customfield_13110","customfield_13111","customfield_13105","customfield_11708",
                    "customfield_11714","customfield_13012","customfield_13100","customfield_13101","customfield_13102","customfield_13103",
-                   "customfield_13104" ];
+                   "customfield_13104","customfield_10833","customfield_13900" ];
 
   setLabelColor(labelsToColor,'#660000'); 
 
