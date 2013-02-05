@@ -21,6 +21,7 @@ AJS.$(document).ready(function() {
     colorFieldsetLegends();
     createLinkIntoPANSystem();
     changeNoneOptionsToBlanks()
+    calculateBudgetTotals();
   });
 
 });
@@ -746,3 +747,146 @@ function overrideOption(fields,whichValue,updatedText) {
 
 }
 
+/**
+ * @desc Set up onchange functions for calculating the various budget totals
+ * @author lcovey
+*/
+function calculateBudgetTotals() {
+
+ budget1 = ["customfield_12006", "customfield_12102", "customfield_12003", "customfield_12500", "customfield_12209", "customfield_12203",
+            "customfield_12206", "customfield_12200", "customfield_12300", "customfield_12400", "customfield_12405", "customfield_12408",
+            "customfield_12411" ];
+ budget2 = ["customfield_12100", "customfield_12103", "customfield_12004", "customfield_12501", "customfield_12210", "customfield_12204",
+            "customfield_12207", "customfield_12201", "customfield_12301", "customfield_12401", "customfield_12406", "customfield_12409",
+            "customfield_12412" ];
+ budget3 = ["customfield_12101", "customfield_12104", "customfield_12005", "customfield_12502", "customfield_12211", "customfield_12205",
+            "customfield_12208", "customfield_12202", "customfield_12302", "customfield_12402", "customfield_12407", "customfield_12410",
+            "customfield_12413" ];
+ budget4 = ["customfield_13144", "customfield_13151", "customfield_13159", "customfield_13166", "customfield_13173", "customfield_13185",
+            "customfield_13182", "customfield_13194", "customfield_13201", "customfield_13208", "customfield_13300", "customfield_13307",
+            "customfield_13314" ];
+ budget5 = ["customfield_13145", "customfield_13152", "customfield_13160", "customfield_13167", "customfield_13174", "customfield_13187",
+            "customfield_13183", "customfield_13195", "customfield_13202", "customfield_13209", "customfield_13301", "customfield_13308",
+            "customfield_13315" ];
+ budget6 = ["customfield_13146", "customfield_13153", "customfield_13161", "customfield_13168", "customfield_13181", "customfield_13188",
+            "customfield_13184", "customfield_13196", "customfield_13203", "customfield_13210", "customfield_13302", "customfield_13309",
+            "customfield_13316" ];
+ budget7 = ["customfield_13147", "customfield_13158", "customfield_13162", "customfield_13169", "customfield_13176", "customfield_13189",
+            "customfield_13190", "customfield_13197", "customfield_13204", "customfield_13211", "customfield_13303", "customfield_13310",
+            "customfield_13317" ];
+ budget8 = ["customfield_13148", "customfield_13155", "customfield_13163", "customfield_13170", "customfield_13177", "customfield_13335",
+            "customfield_13191", "customfield_13198", "customfield_13205", "customfield_13212", "customfield_13304", "customfield_13311",
+            "customfield_13318" ];
+ budget9 = ["customfield_13149", "customfield_13156", "customfield_13164", "customfield_13171", "customfield_13178", "customfield_13336",
+            "customfield_13192", "customfield_13199", "customfield_13206", "customfield_13213", "customfield_13305", "customfield_13312",
+            "customfield_13319" ];
+ budget10 = ["customfield_13150", "customfield_13157", "customfield_13165", "customfield_13172", "customfield_13179", "customfield_13337",
+             "customfield_13193", "customfield_13200", "customfield_13207", "customfield_13214", "customfield_13306", "customfield_13313",
+             "customfield_13320" ];
+ 
+ setBudgetOnChangeEvents(budget1,"customfield_12503");
+ setBudgetOnChangeEvents(budget2,"customfield_12504");
+ setBudgetOnChangeEvents(budget3,"customfield_12505");
+ setBudgetOnChangeEvents(budget4,"customfield_13328");
+ setBudgetOnChangeEvents(budget5,"customfield_13329");
+ setBudgetOnChangeEvents(budget6,"customfield_13330");
+ setBudgetOnChangeEvents(budget7,"customfield_13331");
+ setBudgetOnChangeEvents(budget8,"customfield_13332");
+ setBudgetOnChangeEvents(budget9,"customfield_13333");
+ setBudgetOnChangeEvents(budget10,"customfield_13334");
+ 
+}
+
+/**
+ * @desc set the onchange event for an array of fields to sum up into a total fields
+ * @author lcovey
+*/
+function setBudgetOnChangeEvents(fieldsToSum,totalField) {
+
+  budgetTotalsAndCodes = [ ["customfield_12503","customfield_11004"],
+                           ["customfield_12504","customfield_11601"],
+                           ["customfield_12505","customfield_11712"],
+                           ["customfield_13328","customfield_12902"],
+                           ["customfield_13329","customfield_12903"],
+                           ["customfield_13330","customfield_12904"],
+                           ["customfield_13331","customfield_12905"],
+                           ["customfield_13332","customfield_12906"],
+                           ["customfield_13333","customfield_12907"],
+                           ["customfield_13334","customfield_12912"] ];
+
+  //set onchange events for each number that needs to be summed
+  for (var i=0; i < fieldsToSum.length;i++) {
+    field = document.getElementById(fieldsToSum[i]);
+    if (field) {
+      field.onchange=function() {
+        sumUpBudgets(fieldsToSum,totalField);
+        recalculateTotals(budgetTotalsAndCodes);
+      };
+    } 
+  }
+
+  //set onchange events for the codes, since changing them changes totals
+  for (var j=0; j < budgetTotalsAndCodes[j].length;j++) {
+    budgetCodeField = document.getElementById(budgetTotalsAndCodes[j][1]);
+    if (budgetCodeField) {
+      budgetCodeField.onchange=function() {
+        sumUpBudgets(fieldsToSum,totalField);
+        recalculateTotals(budgetTotalsAndCodes);
+      };
+    }
+  }
+}
+
+/**
+ * @desc take an array of fields and sum them up into a given field
+ * @author lcovey
+*/
+function sumUpBudgets(fieldsToSum,totalField) {
+
+  var budgetTotal = document.getElementById(totalField);
+  var total = 0;
+  for (var i=0; i < fieldsToSum.length;i++) {
+    field = document.getElementById(fieldsToSum[i]);
+    if (field) {
+      if (!isNaN(field.value)) {
+        total = total + Number(field.value); 
+      }
+    }
+  }
+
+  if (budgetTotal) {
+    budgetTotal.value = total;
+  }
+}
+
+/**
+ * @desc look at the various budget totals and add them to the appropriate total
+ * @author lcovey
+*/
+function recalculateTotals(fieldsToSum) {
+
+  var awardAmount = document.getElementById("customfield_12600");
+  var costShare = document.getElementById("customfield_12601");
+  var awardTotal = 0;
+  var csTotal = 0;
+  for (var i=0; i < fieldsToSum.length;i++) {
+    total = document.getElementById(fieldsToSum[i][0]);
+    code = document.getElementById(fieldsToSum[i][1]);
+    if ((total) && (code)) {
+      if (!isNaN(total.value)){
+        if ((code.options[code.selectedIndex].text.indexOf("BSPL") != -1) || 
+            (code.options[code.selectedIndex].text.indexOf("BREG") != -1) ){
+          awardTotal = awardTotal + Number(total.value);
+        } else if (code.options[code.selectedIndex].text.indexOf("Cost Share") != -1) {
+          csTotal = csTotal + Number(total.value);
+        }
+      }
+    }
+  }
+
+  if ((awardAmount) && (costShare)) {
+    awardAmount.value = awardTotal;
+    costShare.value = csTotal;
+  }
+
+}
