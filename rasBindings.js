@@ -240,7 +240,7 @@ function populateProjectPersonnel() {
  * @author lcovey
 */
 function populatePreAwardAdmin() {
-  preAwardAdminUserPicker = document.getElementById('customfield_10010');
+  preAwardAdminUserPicker = document.getElementById('customfield_14800');
   preAwardAdminInBanner = document.getElementById('customfield_13000');
 
   if ((preAwardAdminInBanner != null) && (preAwardAdminUserPicker != null) ){
