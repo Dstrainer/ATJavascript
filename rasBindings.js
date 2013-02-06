@@ -776,13 +776,13 @@ function calculateBudgetTotals() {
             "customfield_13317" ];
  budget8 = ["customfield_13148", "customfield_13155", "customfield_13163", "customfield_13170", "customfield_13177", "customfield_13335",
             "customfield_13191", "customfield_13198", "customfield_13205", "customfield_13212", "customfield_13304", "customfield_13311",
-            "customfield_13318" ];
+            "customfield_13318", "customfield_13325" ];
  budget9 = ["customfield_13149", "customfield_13156", "customfield_13164", "customfield_13171", "customfield_13178", "customfield_13336",
             "customfield_13192", "customfield_13199", "customfield_13206", "customfield_13213", "customfield_13305", "customfield_13312",
-            "customfield_13319" ];
+            "customfield_13319", "customfield_13326" ];
  budget10 = ["customfield_13150", "customfield_13157", "customfield_13165", "customfield_13172", "customfield_13179", "customfield_13337",
              "customfield_13193", "customfield_13200", "customfield_13207", "customfield_13214", "customfield_13306", "customfield_13313",
-             "customfield_13320" ];
+             "customfield_13320", "customfield_13327" ];
  
  setBudgetOnChangeEvents(budget1,"customfield_12503");
  setBudgetOnChangeEvents(budget2,"customfield_12504");
@@ -826,7 +826,7 @@ function setBudgetOnChangeEvents(fieldsToSum,totalField) {
   }
 
   //set onchange events for the codes, since changing them changes totals
-  for (var j=0; j < budgetTotalsAndCodes[j].length;j++) {
+  for (var j=0; j < budgetTotalsAndCodes.length;j++) {
     budgetCodeField = document.getElementById(budgetTotalsAndCodes[j][1]);
     if (budgetCodeField) {
       budgetCodeField.onchange=function() {
