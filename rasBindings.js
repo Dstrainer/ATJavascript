@@ -22,6 +22,7 @@ AJS.$(document).ready(function() {
     createLinkIntoPANSystem();
     changeNoneOptionsToBlanks()
     calculateBudgetTotals();
+    displayUnassignedAssignee();
   });
 
 });
@@ -889,4 +890,18 @@ function recalculateTotals(fieldsToSum) {
     costShare.value = csTotal;
   }
 
+}
+
+/**
+ * @desc swap Automatic assignee for Unassigned (they are the same thing, but the display difference is important for our users)
+ * @author lcovey
+*/
+function displayUnassignedAssignee() {
+  var createIssueButton = document.getElementById("create-issue-submit");
+  if (createIssueButton) {
+    var assigneeField = document.getElementById("assignee-field");
+    if (assigneeField) {
+      assigneeField.value = "Unassigned";
+    }
+  }
 }
