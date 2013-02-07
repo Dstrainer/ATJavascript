@@ -23,6 +23,7 @@ AJS.$(document).ready(function() {
     changeNoneOptionsToBlanks()
     calculateBudgetTotals();
     displayUnassignedAssignee();
+    warnOnCOICreate()
   });
 
 });
@@ -902,6 +903,26 @@ function displayUnassignedAssignee() {
     var assigneeField = document.getElementById("assignee-field");
     if (assigneeField) {
       assigneeField.value = "Unassigned";
+    }
+  }
+}
+
+/**
+ * @desc show a popup when submitting a new COI issue
+ * @author lcovey
+*/
+function warnOnCOICreate() {
+  var createIssueButton = document.getElementById("create-issue-submit");
+  if (createIssueButton) {
+    var issueType = determineIssueType(); 
+    if (issueType == "COI Review") {
+      var jiraForm = document.forms["jiraform"];
+      if (jiraForm) {
+        var existingHandler = jiraForm.onsubmit;
+        jiraForm.onsubmit = function(e) {
+          alert("REMINDER: Attach SPAF, budget, external entity certification form (if applicable), and CONA form to the COI subtask");
+        }
+      }
     }
   }
 }
