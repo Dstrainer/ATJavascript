@@ -170,7 +170,9 @@ function populateSummary() {
           case "Vendor/Subrecipient Form":
               summary.value = "Vendor/Subrecipient Form";
             break;
-
+          case "Sponsor Files":
+              summary.value = "Sponsor Files";
+            break;
           case "RFP Review":
               summary.value = generateRFPReviewSummaryString();
             break;
@@ -725,7 +727,7 @@ function changeNoneOptionsToBlanks() {
                     "customfield_10901","customfield_10903","customfield_10906","customfield_10907","customfield_14500","customfield_14102",
                     "customfield_10928","customfield_10930","customfield_11004","customfield_12912","customfield_11601","customfield_11712",
                     "customfield_12902","customfield_12903","customfield_12904","customfield_12905","customfield_12906","customfield_12907",
-                    "customfield_10917","customfield_10918","customfield_10920","customfield_10921"];
+                    "customfield_10917","customfield_10918","customfield_10920","customfield_10921","customfield_10110","customfield_10526" ];
 
   overrideOption(fieldsToChange,"-1","");
 }
