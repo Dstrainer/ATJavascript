@@ -24,6 +24,7 @@ AJS.$(document).ready(function() {
     calculateBudgetTotals();
     displayUnassignedAssignee();
     warnOnCOICreate()
+    setDefaultAssigneeForTransitions(context);
   });
 
 });
@@ -927,4 +928,28 @@ function warnOnCOICreate() {
       }
     }
   }
+}
+
+/**
+ * @desc set default assignee for various transitions
+ * @author lcovey
+ *
+ * This solution is based on information found at https://answers.atlassian.com/questions/59501/change-assignee-via-javascript
+*/
+function setDefaultAssigneeForTransitions(context) {
+  var transitionForm = document.getElementById('issue-workflow-transition');
+  if (transitionForm != null) {
+    var transitionSubmitButton = document.getElementById('issue-workflow-transition-submit');
+    var assignee = document.getElementById("assignee");
+    if ((transitionSubmitButton) && (assignee) ) {
+      var optionToAdd = document.createElement("option");
+      switch (transitionSubmitButton.value) {
+          case "Assign To Contracts":
+              var assigneeSelect = AJS.$("#assignee", context);
+              assigneeSelect.trigger('set-selection-value', "ospcontracts");
+            break; 
+      }
+    }
+  }
+
 }
