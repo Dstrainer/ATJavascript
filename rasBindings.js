@@ -179,6 +179,12 @@ function populateSummary() {
           case "RFP Review":
               summary.value = generateRFPReviewSummaryString();
             break;
+          case "LOG - Funded Modification":
+              summary.value = "LOG: " + generateDefaultSummaryString();
+            break;
+          case "LOG - Funded Agreement":
+              summary.value = "LOG: " + generateDefaultSummaryString();
+            break;
           case "Other Agreement":
               summary.value = generateOtherAgreementSummaryString();
             break;
@@ -584,7 +590,9 @@ function colorFieldLabels() {
                    "customfield_13010","customfield_13112","customfield_11709","customfield_11715","customfield_13106","customfield_13107",
                    "customfield_13108","customfield_13109","customfield_13110","customfield_13111","customfield_13105","customfield_11708",
                    "customfield_11714","customfield_13012","customfield_13100","customfield_13101","customfield_13102","customfield_13103",
-                   "customfield_13104","customfield_10833","customfield_13900","customfield_14801" ];
+                   "customfield_15001","customfield_15002","customfield_15003","customfield_15004","customfield_15005","customfield_15006",
+                   "customfield_15007","customfield_15008","customfield_15009","customfield_13104","customfield_10833","customfield_13900",
+                   "customfield_14801" ];
 
   setLabelColor(labelsToColor,'#660000'); 
 
