@@ -27,6 +27,7 @@ AJS.$(document).ready(function() {
     setDefaultAssigneeForTransitions(context);
     //hideOZTabs();
     //showFullName();
+    setDeferredAcctCodeByBillFormat();
   });
 
 });
@@ -996,5 +997,25 @@ function hideOZTabs() {
     if (anchors[i].text.indexOf("(OZ)") != "-1" ) {
       anchors[i].style.display="none";
     }
+  }
+}
+
+/**
+ * @desc Set the Deferred Account Code based on the Bill Format
+ * @author lcovey
+*/
+function setDeferredAcctCodeByBillFormat() {
+
+  billFormat = document.getElementById('customfield_10920');
+  deferredAcctCode = document.getElementById('customfield_15010');
+
+  if ( (billFormat) && (deferredAcctCode) ) {  
+    billFormat.onchange=function() {
+      if (billFormat.options[billFormat.selectedIndex].value == "10760") {    //FIXD
+        AJS.$("#customfield_15010").val("13501");  //YES
+      } else {
+        AJS.$("#customfield_15010").val("13502");  //NO
+      }
+    };
   }
 }
