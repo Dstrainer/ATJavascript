@@ -23,8 +23,10 @@ AJS.$(document).ready(function() {
     changeNoneOptionsToBlanks()
     calculateBudgetTotals();
     displayUnassignedAssignee();
-    warnOnCOICreate()
+    warnOnCOICreate();
     setDefaultAssigneeForTransitions(context);
+    //hideOZTabs();
+    //showFullName();
   });
 
 });
@@ -728,7 +730,8 @@ function changeNoneOptionsToBlanks() {
                     "customfield_10901","customfield_10903","customfield_10906","customfield_10907","customfield_14500","customfield_14102",
                     "customfield_10928","customfield_10930","customfield_11004","customfield_12912","customfield_11601","customfield_11712",
                     "customfield_12902","customfield_12903","customfield_12904","customfield_12905","customfield_12906","customfield_12907",
-                    "customfield_10917","customfield_10918","customfield_10920","customfield_10921","customfield_10110","customfield_10526" ];
+                    "customfield_10917","customfield_10918","customfield_10920","customfield_10921","customfield_10110","customfield_10526",
+                    "customfield_15010" ];
 
   overrideOption(fieldsToChange,"-1","");
 }
@@ -952,4 +955,38 @@ function setDefaultAssigneeForTransitions(context) {
     }
   }
 
+}
+/**
+ * @desc this is a PoC that demonstrates how to hit JIRA's REST api to grab user data and display to the screen. if it were ever used, make a
+ *       user just for this purpose.
+ * @author lcovey
+*/
+function showFullName() {
+  preAwardAdminUserPicker = document.getElementById('customfield_14800'); 
+  if (preAwardAdminUserPicker){
+    preAwardAdminUserPicker.onchange=function() {
+      AJS.$.ajax({
+            url: "https://webapps-pprd.es.vt.edu/agreements/rest/api/2/user?username=" + preAwardAdminUserPicker.value,
+            type: "GET",
+            user: "lcovey",
+            password: "dafdafd",
+            success: function(msg) {
+              alert(msg.displayName);
+            }
+      });
+    };
+  }
+}
+
+/** 
+ * @desc Hide the tabs where we have our temporary holding fields
+ * @author lcovey
+*/
+function hideOZTabs() {
+  anchors = document.getElementsByTagName('a');
+  for (i=0;i<anchors.length;i++) {
+    if (anchors[i].text.indexOf("(OZ)") != "-1" ) {
+      anchors[i].style.display="none";
+    }
+  }
 }
