@@ -827,6 +827,7 @@ function setBudgetOnChangeEvents(fieldsToSum,totalField,budgetCodeField,miscCSFi
     field = document.getElementById(fieldsToSum[i]);
     if (field) {
       field.onchange=function() {
+        alertIfBudgetCodeIsBlank(budgetCodeField);
         sumUpBudget(fieldsToSum,totalField);
         recalculateTotals();
       };
@@ -877,6 +878,20 @@ function setBudgetOnChangeEvents(fieldsToSum,totalField,budgetCodeField,miscCSFi
       sumUpBudget(fieldsToSum,totalField);
       recalculateTotals();
     };
+  }
+}
+
+/**
+ * @desc BudgetCode cannot be blank.  If a budget value is entered and the code is blank, throw alert
+ * @author lcovey
+*/
+function alertIfBudgetCodeIsBlank(budgetCodeField) {
+
+  var budgetCode = document.getElementById(budgetCodeField);
+  if (budgetCode) {
+    if (budgetCode.options[budgetCode.selectedIndex].value == "-1") {
+      alert("WARNING: The Budget Code for this budget has not been set!");
+    }
   }
 }
 
