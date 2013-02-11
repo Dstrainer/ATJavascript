@@ -803,16 +803,16 @@ function calculateBudgetTotals() {
              "customfield_13193", "customfield_13200", "customfield_13207", "customfield_13214", "customfield_13306", "customfield_13313",
              "customfield_13320", "customfield_13327" ];
  
- setBudgetOnChangeEvents(budget1,"customfield_12503","customfield_11004",null);
- setBudgetOnChangeEvents(budget2,"customfield_12504","customfield_11601","customfield_12403");
- setBudgetOnChangeEvents(budget3,"customfield_12505","customfield_11712","customfield_12404");
- setBudgetOnChangeEvents(budget4,"customfield_13328","customfield_12902","customfield_13321");
- setBudgetOnChangeEvents(budget5,"customfield_13329","customfield_12903","customfield_13322");
- setBudgetOnChangeEvents(budget6,"customfield_13330","customfield_12904","customfield_13323");
- setBudgetOnChangeEvents(budget7,"customfield_13331","customfield_12905","customfield_13324");
- setBudgetOnChangeEvents(budget8,"customfield_13332","customfield_12906","customfield_13325");
- setBudgetOnChangeEvents(budget9,"customfield_13333","customfield_12907","customfield_13326");
- setBudgetOnChangeEvents(budget10,"customfield_13334","customfield_12912","customfield_13327");
+ setBudgetOnChangeEvents(budget1,"customfield_12503","customfield_11004",null,null);
+ setBudgetOnChangeEvents(budget2,"customfield_12504","customfield_11601","customfield_12403","customfield_15001");
+ setBudgetOnChangeEvents(budget3,"customfield_12505","customfield_11712","customfield_12404","customfield_15002");
+ setBudgetOnChangeEvents(budget4,"customfield_13328","customfield_12902","customfield_13321","customfield_15003");
+ setBudgetOnChangeEvents(budget5,"customfield_13329","customfield_12903","customfield_13322","customfield_15004");
+ setBudgetOnChangeEvents(budget6,"customfield_13330","customfield_12904","customfield_13323","customfield_15005");
+ setBudgetOnChangeEvents(budget7,"customfield_13331","customfield_12905","customfield_13324","customfield_15006");
+ setBudgetOnChangeEvents(budget8,"customfield_13332","customfield_12906","customfield_13325","customfield_15007");
+ setBudgetOnChangeEvents(budget9,"customfield_13333","customfield_12907","customfield_13326","customfield_15008");
+ setBudgetOnChangeEvents(budget10,"customfield_13334","customfield_12912","customfield_13327","customfield_15009");
 
 }
 
@@ -820,7 +820,7 @@ function calculateBudgetTotals() {
  * @desc set the onchange event for an array of fields to sum up into a total fields
  * @author lcovey
 */
-function setBudgetOnChangeEvents(fieldsToSum,totalField,budgetCodeField,miscCSField) {
+function setBudgetOnChangeEvents(fieldsToSum,totalField,budgetCodeField,miscCSField,nameCSField) {
 
   //set onchange events for each number that needs to be summed in this particular budget
   for (var i=0; i < fieldsToSum.length;i++) {
@@ -849,19 +849,28 @@ function setBudgetOnChangeEvents(fieldsToSum,totalField,budgetCodeField,miscCSFi
         miscCS.disabled = true;
         miscCS.value = "";
       }
+      nameCS = document.getElementById(nameCSField);
+      if (nameCS) {
+        nameCS.disabled = true;
+        nameCS.value = "";
+      }
     }
     //set the budget code's onchange, which also drives the miscCS field
     budgetCode.onchange=function() {
       miscCS = document.getElementById(miscCSField);
-      if (miscCS) {
+      nameCS = document.getElementById(nameCSField);  
+      if ( (miscCS) && (nameCS) ){
         if (budgetCode.options[budgetCode.selectedIndex].text.indexOf("NOT IN BANNER") != -1) {
           miscCS.disabled = false;
-          alert ("You can now put values into the MISC CS field");
+          nameCS.disabled = false;
+          alert ("You can now put values into the MISC CS and Names of 3rd Party CS fields");
         } else {
           if (miscCS.disabled == false) {   //if the MISC field was enabled, the last choice was NOT IN BANNER, so...
-            alert ("The MISC - Third Party CS field for this budget has been zeroed out and disabled.");
+            alert ("The MISC CS field and Names of 3rd Party CS field for this budget have been zeroed out and disabled.");
             miscCS.disabled = true;
             miscCS.value = "";
+            nameCS.disabled = true;
+            nameCS.value = "";
           }
         }
       }
