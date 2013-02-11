@@ -28,6 +28,7 @@ AJS.$(document).ready(function() {
     //hideOZTabs();
     //showFullName();
     setDeferredAcctCodeByBillFormat();
+    disableProposalNumberAndRevNumber();
   });
 
 });
@@ -1042,5 +1043,23 @@ function setDeferredAcctCodeByBillFormat() {
         AJS.$("#customfield_15010").val("13502");  //NO
       }
     };
+  }
+}
+
+/**
+ * @desc Disable ProposalNumber and RevisionNumber on certain screens
+ * @author lcovey
+*/
+function disableProposalNumberAndRevNumber() {
+  var proposalNumber = document.getElementById('customfield_10102');
+  var revisionNumber = document.getElementById('customfield_14600');
+  var transitionForm = document.getElementById('issue-workflow-transition');
+  var transitionSubmitButton = document.getElementById('issue-workflow-transition-submit'); 
+
+  if ( (transitionForm) && (transitionSubmitButton) && (proposalNumber) && (revisionNumber) ) {
+    if (transitionSubmitButton.value.indexOf("AS - General Info") != "-1") {
+      revisionNumber.disabled = true;
+      proposalNumber.disabled = true;
+    }
   }
 }
