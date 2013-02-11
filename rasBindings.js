@@ -29,6 +29,7 @@ AJS.$(document).ready(function() {
     //showFullName();
     setDeferredAcctCodeByBillFormat();
     disableProposalNumberAndRevNumber();
+    setIndirectCalcByTypeOfIndirect();
   });
 
 });
@@ -1061,5 +1062,27 @@ function disableProposalNumberAndRevNumber() {
       revisionNumber.disabled = true;
       proposalNumber.disabled = true;
     }
+  }
+}
+
+/**
+ * @desc bind Indirect Calc to Type of Indirect
+ * @author lcovey
+*/
+function setIndirectCalcByTypeOfIndirect() {
+  var typeOfIndirect = document.getElementById('customfield_10928');
+  var indirectCalc = document.getElementById('customfield_10930');
+
+  if ( (typeOfIndirect) && (indirectCalc) ) {
+    typeOfIndirect.onchange=function() {
+      if (typeOfIndirect.options[typeOfIndirect.selectedIndex].value == "10778") {    //Full Indirect
+        AJS.$("#customfield_10930").val("10785");  //MTDC
+      } else if (typeOfIndirect.options[typeOfIndirect.selectedIndex].value == "10783") {    //Not Allowed - Sponsor Policy
+        AJS.$("#customfield_10930").val("13002");  //None
+      } else  {
+        AJS.$("#customfield_10930").val("-1");  //Blank
+      }
+    };
+    
   }
 }
