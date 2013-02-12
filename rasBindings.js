@@ -834,50 +834,50 @@ function setBudgetOnChangeEvents(fieldsToSum,totalField,budgetCodeField,miscCSFi
     } 
   }
 
-  // disable the total field so it must be a calculated field
+  // disable the total field for this particular budget so it must be a calculated field
   var budgetTotal = document.getElementById(totalField);
   if (budgetTotal) { 
     budgetTotal.disabled = true;
   }
 
-  //WIRE UP BUDGET CODES
+  //Wire up budget code for this particular budget
   var budgetCode = document.getElementById(budgetCodeField);
   if (budgetCode) {
-    //determine if the miscCSField should be zeroed out and disabled based on the budget Code
-    if (budgetCode.options[budgetCode.selectedIndex].text.indexOf("NOT IN BANNER") == -1) {
-      miscCS = document.getElementById(miscCSField);
-      if (miscCS) { 
-        miscCS.disabled = true;
-        miscCS.value = "";
-      }
-      nameCS = document.getElementById(nameCSField);
-      if (nameCS) {
-        nameCS.disabled = true;
-        nameCS.value = "";
-      }
-    }
-    //set the budget code's onchange, which also drives the miscCS field
+    enableOrDisableBudgetFieldsBasedOnBudgetCode(budgetCodeField,miscCSField,nameCSField,false);
+    
     budgetCode.onchange=function() {
-      miscCS = document.getElementById(miscCSField);
-      nameCS = document.getElementById(nameCSField);  
-      if ( (miscCS) && (nameCS) ){
-        if (budgetCode.options[budgetCode.selectedIndex].text.indexOf("NOT IN BANNER") != -1) {
-          miscCS.disabled = false;
-          nameCS.disabled = false;
-          alert ("You can now put values into the MISC CS and Names of 3rd Party CS fields");
-        } else {
-          if (miscCS.disabled == false) {   //if the MISC field was enabled, the last choice was NOT IN BANNER, so...
-            alert ("The MISC CS field and Names of 3rd Party CS field for this budget have been zeroed out and disabled.");
-            miscCS.disabled = true;
-            miscCS.value = "";
-            nameCS.disabled = true;
-            nameCS.value = "";
-          }
-        }
-      }
+      enableOrDisableBudgetFieldsBasedOnBudgetCode(budgetCodeField,miscCSField,nameCSField,true);
       sumUpBudget(fieldsToSum,totalField);
       recalculateTotals();
     };
+  }
+}
+
+/**
+ * @desc MISC CS and Name CS fields should only been enabled if their budgetCode is NOT IN BANNER
+ * @author lcovey
+*/
+function enableOrDisableBudgetFieldsBasedOnBudgetCode(budgetCodeField,miscCSField,nameCSField,displayWarning) {
+  var budgetCode = document.getElementById(budgetCodeField);
+  var miscCS = document.getElementById(miscCSField);
+  var nameCS = document.getElementById(nameCSField);
+  if ( (budgetCode) && (miscCS) && (nameCS) ) {
+    //determine if the miscCSField should be zeroed out and disabled based on the budget Code
+    if (budgetCode.options[budgetCode.selectedIndex].text.indexOf("NOT IN BANNER") == -1) {
+      if ( (miscCS.disabled == false) && (displayWarning) ) { //if the MISC field was enabled, the last choice was NOT IN BANNER, so alert if desired
+         alert ("The MISC CS field and Names of 3rd Party CS field for this budget have been zeroed out and disabled.");
+      }
+      miscCS.disabled = true;
+      miscCS.value = "";
+      nameCS.disabled = true;
+      nameCS.value = "";
+    } else {
+      if ((miscCS.disabled == true) && (displayWarning) ) {   //if the MISC field was disabled, the last choice was something other than NOT IN BANNER, so alert if desired
+         alert ("You can now put values into the MISC CS and Names of 3rd Party CS fields");
+      }
+      miscCS.disabled = false;
+      nameCS.disabled = false;
+    }
   }
 }
 
