@@ -30,7 +30,7 @@ AJS.$(document).ready(function() {
     setDeferredAcctCodeByBillFormat();
     disableProposalNumberAndRevNumber();
     setIndirectCalcByTypeOfIndirect();
-    setBillingBindings()
+    setBillingBindings();
   });
 
 });
@@ -743,7 +743,7 @@ function changeNoneOptionsToBlanks() {
                     "customfield_10928","customfield_10930","customfield_11004","customfield_12912","customfield_11601","customfield_11712",
                     "customfield_12902","customfield_12903","customfield_12904","customfield_12905","customfield_12906","customfield_12907",
                     "customfield_10917","customfield_10918","customfield_10920","customfield_10921","customfield_10110","customfield_10526",
-                    "customfield_15010","customfield_14801","customfield_15501","customfield_15502","customfield_15503" ];
+                    "customfield_15010","customfield_14801","customfield_15201","customfield_15202","customfield_15203" ];
 
   overrideOption(fieldsToChange,"-1","");
 }
@@ -1118,23 +1118,37 @@ function setIndirectCalcByTypeOfIndirect() {
 */
 function setBillingBindings() {
 
-  var billing = document.getElementById('customfield_12106');
-  var billingCycle = document.getElementById('customfield_11117');
+  var billingBillable = document.getElementById('customfield_11906-1');
+  var billingNonBillable = document.getElementById('customfield_11906-2');
+  var billingCycle = document.getElementById('customfield_10917');
   var sponsorCategory = document.getElementById('customfield_10902');
+  var loc = document.getElementById('customfield_10918');
  
-  if (billing) {
-    billing.onchange=function() {
+  if (billingBillable) {
+    billingBillable.onclick=function() {
       updateCycle();
       updateBill();
       updatePaym();
+      warnOnBillableAndBillingCycleIncompatibleValues();
     };
   }
+ 
+  if (billingNonBillable) {
+    billingNonBillable.onclick=function() {
+      updateCycle();
+      updateBill();
+      updatePaym();
+      warnOnBillableAndBillingCycleIncompatibleValues();
+    };
+  } 
 
   if (billingCycle) {
     billingCycle.onchange=function() {
       updateCycle();
       updateBill();
       updatePaym();
+      warnOnBillableAndBillingCycleIncompatibleValues();
+      warnOnBillingCycleAndLOCIncompatibleValues();
     };
   }
 
@@ -1146,35 +1160,73 @@ function setBillingBindings() {
     };
   }
 
+  if (loc) {
+    loc.onchange=function() {
+      updateBill();
+      warnOnBillingCycleAndLOCIncompatibleValues();
+    };
+  }
 }
 
+/**
+ * @desc Some values of Billing and BillingCycle are incompatible with one another.  Warn the user, but do not prevent them from setting said values
+ * @author lcovey
+*/
+function warnOnBillableAndBillingCycleIncompatibleValues() {
+
+  var billingBillable = document.getElementById('customfield_11906-1');
+  var billingCycle = document.getElementById('customfield_10917');
+  
+  if ( (billingBillable) && (billingCycle) ) {
+    if ( (billingCycle.options[billingCycle.selectedIndex].value == "10749") && (billingBillable.checked) ){
+      alert("WARNING: Billing is set to BILLABLE, and Billing Cycle is set to ADVANCE - FUNDS.  These are typically incompatible values.");
+    }
+  }
+}
+
+/**
+ * @desc If LOG# is set, Billing Cycle should be LoC
+*/
+function warnOnBillingCycleAndLOCIncompatibleValues() {
+
+  var billingCycle = document.getElementById('customfield_10917');
+  var loc = document.getElementById('customfield_10918');
+
+  if ( (loc) && (billingCycle) ) {
+    if ( (billingCycle.options[billingCycle.selectedIndex].value != "10750") && (loc.options[loc.selectedIndex].value != "-1") ) { //Billing Cycle: LOC and LOC not none
+      alert("WARNING: Billing Cycle is not set to Letter Of Credit, but an LOC # has been set!");
+    }
+  }
+}
 /**
  * @desc set the CYCLE field based on the values in Billing and Billing Cycle
  * @author lcovey
 */
 function updateCycle() {
 
-  var cycle = document.getElementById('customfield_15503');
-  var billing = document.getElementById('customfield_12106');
-  var billingCycle = document.getElementById('customfield_11117');
+  var cycle = document.getElementById('customfield_15203');
+  var billingBillable = document.getElementById('customfield_11906-1');
+  var billingNonBillable = document.getElementById('customfield_11906-2');
+  var billingCycle = document.getElementById('customfield_10917');
 
-  if ( (billing) && (cycle) && (billingCycle) ) {
-
-    if (billing.options[billing.selectedIndex].value == "11208") { //Billing: BILLABLE
-
+  var newValue = "-1"; //set the default value to blank
+  if ( (billingBillable) && (billingNonBillable) && (cycle) && (billingCycle) ) {
+    if (billingBillable.checked) { //Billing: BILLABLE
       if (billingCycle.options[billingCycle.selectedIndex].value == "10744") {        //Billing Cycle: 6 months from last bill/semi-annually
-        AJS.$("#customfield_15503").val("13712");  //CYCLE:6
+        newValue = "13712";  //CYCLE:6
       } else if (billingCycle.options[billingCycle.selectedIndex].value == "10745") { //Billing Cycle: Irregular
-        AJS.$("#customfield_15503").val("13713");  //CYCLE:I
+        newValue = "13713";  //CYCLE:I
       } else if (billingCycle.options[billingCycle.selectedIndex].value == "10746") { //Billing Cycle: Monthly
-        AJS.$("#customfield_15503").val("13714");  //CYCLE:M
+        newValue = "13714";  //CYCLE:M
       } else if (billingCycle.options[billingCycle.selectedIndex].value == "10747") { //Billing Cycle: Non-Standard Qtr
-        AJS.$("#customfield_15503").val("13715");  //CYCLE:N
+        newValue = "13715";  //CYCLE:N
       } else if (billingCycle.options[billingCycle.selectedIndex].value == "10748") { //Billing Cycle: Quarterly
-        AJS.$("#customfield_15503").val("13716");  //CYCLE:Q
+        newValue = "13716";  //CYCLE:Q
       }
 
     }
+
+     AJS.$("#customfield_15203").val(newValue);
   }
 }
 
@@ -1184,26 +1236,32 @@ function updateCycle() {
 */
 function updateBill() {
 
-  var bill = document.getElementById('customfield_15502');
-  var billing = document.getElementById('customfield_12106');
-  var billingCycle = document.getElementById('customfield_11117');
+  var bill = document.getElementById('customfield_15202');
+  var billingBillable = document.getElementById('customfield_11906-1');
+  var billingNonBillable = document.getElementById('customfield_11906-2');
+  var billingCycle = document.getElementById('customfield_10917');
   var loc = document.getElementById('customfield_10918');
 
-  if ( (bill) && (billing) && (billingCycle) && (loc) ) {
+  var newValue = "-1"; //set the default value to blank
+  if ( (bill) && (billingBillable) && (billingNonBillable) && (billingCycle) && (loc) ) {
 
-    if (billing.options[billing.selectedIndex].value == "11208") {           //Billing: BILLABLE
-        AJS.$("#customfield_15502").val("13711");    //BILL:Y
-    } else if (billing.options[billing.selectedIndex].value == "11209") {    //Billing: NON-BILLABLE
+    if (billingBillable.checked) {           //Billing: BILLABLE
+        newValue ="13711";    //BILL:Y
+    } else if (billingNonBillable.checked) {    //Billing: NON-BILLABLE
 
-        if ( (billingCycle.options[billingCycle.selectedIndex].value == "10750") || (loc.options[loc.selectedIndex].value != "-1") ) { //Billing Cycle: LOC or LOC not none
-          AJS.$("#customfield_15502").val("13708");  //BILL:1
-        } else if (billingCycle.options[billingCycle.selectedIndex].value == "10751") {                                                //Billing Cycle: LoG
-          AJS.$("#customfield_15502").val("13709");  //BILL:L
-        } else if (billingCycle.options[billingCycle.selectedIndex].value == "10749") {                                                //Billing Cycle: Advance Funds
-          AJS.$("#customfield_15502").val("13710");  //BILL:8
+        if (billingCycle.options[billingCycle.selectedIndex].value == "10750") {         //Billing Cycle: LOC 
+          newValue = "13708";  //BILL:1
+        } else if (billingCycle.options[billingCycle.selectedIndex].value == "10751") {  //Billing Cycle: LoG
+          newValue = "13709";  //BILL:L
+        } else if (billingCycle.options[billingCycle.selectedIndex].value == "10749") {  //Billing Cycle: Advance Funds
+          newValue = "13710";  //BILL:8
+        } else if (loc.options[loc.selectedIndex].value != "-1") {                       //LOC# is not None
+          newValue = "13708";  //BILL:1
         }
 
     }
+
+    AJS.$("#customfield_15202").val(newValue);
   }
 
 }
@@ -1214,37 +1272,40 @@ function updateBill() {
 */
 function updatePaym() {
 
-  var paym = document.getElementById('customfield_15501');
-  var billing = document.getElementById('customfield_12106');
-  var billingCycle = document.getElementById('customfield_11117');
+  var paym = document.getElementById('customfield_15201');
+  var billingBillable = document.getElementById('customfield_11906-1');
+  var billingCycle = document.getElementById('customfield_10917');
   var sponsorCategory = document.getElementById('customfield_10902');
 
-  if ( (paym) && (billing) && (billingCycle) && (sponsorCategory) ) {
+  var newValue = "-1"; //set the default value to blank
 
-      //set PAYM based on Billing
-      if (billing.options[billing.selectedIndex].value == "11208") {  //Billing: BILLABLE
+  if ( (paym) && (billingBillable) && (billingCycle) && (sponsorCategory) ) {
 
-         if (sponsorCategory.options[sponsorCategory.selectedIndex].value == "10706") {     //Sponsor Category: 7-Federal
-           AJS.$("#customfield_15501").val("13705");  //PAYM:03
-         } else if (sponsorCategory.options[sponsorCategory.selectedIndex].value != "-1") { //Sponsor Category: anything other than none/blank
-           AJS.$("#customfield_15501").val("13706");  //PAYM:04
-         }
-        }
+    //set PAYM based on Billing
+    if (billingBillable.checked) {  //Billing: BILLABLE
 
+       if (sponsorCategory.options[sponsorCategory.selectedIndex].value == "10706") {     //Sponsor Category: 7-Federal
+         newValue = "13705";  //PAYM:03
+       } else if (sponsorCategory.options[sponsorCategory.selectedIndex].value != "-1") { //Sponsor Category: anything other than none/blank
+         newValue = "13706";  //PAYM:04
+       }
+
+    } 
+
+    //set PAYM based on BILLING CYCLE
+    if (billingCycle.options[billingCycle.selectedIndex].value == "10751") {        //Billing Cycle: LoG
+      newValue = "13707";  //PAYM:99
+    } else if (billingCycle.options[billingCycle.selectedIndex].value == "10749") { //Billing Cycle: Advance Funds
+
+      if (sponsorCategory.options[sponsorCategory.selectedIndex].value == "10706") {     //Sponsor Category: 7-Federal
+        newValue = "13703";  //PAYM:01
+      } else if (sponsorCategory.options[sponsorCategory.selectedIndex].value != "-1") { //Sponsor Category: anything other than none/blank
+        newValue = "13704";  //PAYM:02
       }
 
-      //Set PAYM based on BILLING CYCLE
-      if (billingCycle.options[billingCycle.selectedIndex].value == "10751") {        //Billing Cycle: LoG
-          AJS.$("#customfield_15501").val("13707");  //PAYM:99
-      } else if (billingCycle.options[billingCycle.selectedIndex].value == "10749") { //Billing Cycle: Advance Funds
+    }
 
-        if (sponsorCategory.options[sponsorCategory.selectedIndex].value == "10706") {     //Sponsor Category: 7-Federal
-          AJS.$("#customfield_15501").val("13703");  //PAYM:01
-        } else if (sponsorCategory.options[sponsorCategory.selectedIndex].value != "-1") { //Sponsor Category: anything other than none/blank
-          AJS.$("#customfield_15501").val("13704");  //PAYM:02
-        }
-
-      }
+    AJS.$("#customfield_15201").val(newValue);
   }
 
 }
