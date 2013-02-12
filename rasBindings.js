@@ -596,7 +596,8 @@ function colorFieldLabels() {
                    "customfield_11714","customfield_13012","customfield_13100","customfield_13101","customfield_13102","customfield_13103",
                    "customfield_15001","customfield_15002","customfield_15003","customfield_15004","customfield_15005","customfield_15006",
                    "customfield_15007","customfield_15008","customfield_15009","customfield_13104","customfield_10833","customfield_13900",
-                   "customfield_14801" ];
+                   "customfield_14801","customfield_15301","customfield_15302","customfield_15303","customfield_15304","customfield_15305",
+                   "customfield_15306","customfield_15307","customfield_15308","customfield_15309" ];
 
   setLabelColor(labelsToColor,'#660000'); 
 
@@ -804,16 +805,16 @@ function calculateBudgetTotals() {
              "customfield_13193", "customfield_13200", "customfield_13207", "customfield_13214", "customfield_13306", "customfield_13313",
              "customfield_13320", "customfield_13327" ];
  
- setBudgetOnChangeEvents(budget1,"customfield_12503","customfield_11004",null,null);
- setBudgetOnChangeEvents(budget2,"customfield_12504","customfield_11601","customfield_12403","customfield_15001");
- setBudgetOnChangeEvents(budget3,"customfield_12505","customfield_11712","customfield_12404","customfield_15002");
- setBudgetOnChangeEvents(budget4,"customfield_13328","customfield_12902","customfield_13321","customfield_15003");
- setBudgetOnChangeEvents(budget5,"customfield_13329","customfield_12903","customfield_13322","customfield_15004");
- setBudgetOnChangeEvents(budget6,"customfield_13330","customfield_12904","customfield_13323","customfield_15005");
- setBudgetOnChangeEvents(budget7,"customfield_13331","customfield_12905","customfield_13324","customfield_15006");
- setBudgetOnChangeEvents(budget8,"customfield_13332","customfield_12906","customfield_13325","customfield_15007");
- setBudgetOnChangeEvents(budget9,"customfield_13333","customfield_12907","customfield_13326","customfield_15008");
- setBudgetOnChangeEvents(budget10,"customfield_13334","customfield_12912","customfield_13327","customfield_15009");
+ setBudgetOnChangeEvents(budget1,"customfield_12503","customfield_11004",null,null,null);
+ setBudgetOnChangeEvents(budget2,"customfield_12504","customfield_11601","customfield_12403","customfield_15001","customfield_15301");
+ setBudgetOnChangeEvents(budget3,"customfield_12505","customfield_11712","customfield_12404","customfield_15002","customfield_15302");
+ setBudgetOnChangeEvents(budget4,"customfield_13328","customfield_12902","customfield_13321","customfield_15003","customfield_15303");
+ setBudgetOnChangeEvents(budget5,"customfield_13329","customfield_12903","customfield_13322","customfield_15004","customfield_15304");
+ setBudgetOnChangeEvents(budget6,"customfield_13330","customfield_12904","customfield_13323","customfield_15005","customfield_15305");
+ setBudgetOnChangeEvents(budget7,"customfield_13331","customfield_12905","customfield_13324","customfield_15006","customfield_15306");
+ setBudgetOnChangeEvents(budget8,"customfield_13332","customfield_12906","customfield_13325","customfield_15007","customfield_15307");
+ setBudgetOnChangeEvents(budget9,"customfield_13333","customfield_12907","customfield_13326","customfield_15008","customfield_15308");
+ setBudgetOnChangeEvents(budget10,"customfield_13334","customfield_12912","customfield_13327","customfield_15009","customfield_15309");
 
 }
 
@@ -821,7 +822,7 @@ function calculateBudgetTotals() {
  * @desc set the onchange event for an array of fields to sum up into a total fields
  * @author lcovey
 */
-function setBudgetOnChangeEvents(fieldsToSum,totalField,budgetCodeField,miscCSField,nameCSField) {
+function setBudgetOnChangeEvents(fieldsToSum,totalField,budgetCodeField,miscCSField,nameCSField,shortNameCSField) {
 
   //set onchange events for each number that needs to be summed in this particular budget
   for (var i=0; i < fieldsToSum.length;i++) {
@@ -844,10 +845,10 @@ function setBudgetOnChangeEvents(fieldsToSum,totalField,budgetCodeField,miscCSFi
   //Wire up budget code for this particular budget
   var budgetCode = document.getElementById(budgetCodeField);
   if (budgetCode) {
-    enableOrDisableBudgetFieldsBasedOnBudgetCode(budgetCodeField,miscCSField,nameCSField,false);
+    enableOrDisableBudgetFieldsBasedOnBudgetCode(budgetCodeField,miscCSField,nameCSField,shortNameCSField,false);
     
     budgetCode.onchange=function() {
-      enableOrDisableBudgetFieldsBasedOnBudgetCode(budgetCodeField,miscCSField,nameCSField,true);
+      enableOrDisableBudgetFieldsBasedOnBudgetCode(budgetCodeField,miscCSField,nameCSField,shortNameCSField,true);
       sumUpBudget(fieldsToSum,totalField);
       recalculateTotals();
     };
@@ -858,11 +859,13 @@ function setBudgetOnChangeEvents(fieldsToSum,totalField,budgetCodeField,miscCSFi
  * @desc MISC CS and Name CS fields should only been enabled if their budgetCode is NOT IN BANNER
  * @author lcovey
 */
-function enableOrDisableBudgetFieldsBasedOnBudgetCode(budgetCodeField,miscCSField,nameCSField,displayWarning) {
+function enableOrDisableBudgetFieldsBasedOnBudgetCode(budgetCodeField,miscCSField,nameCSField,shortNameCSField,displayWarning) {
   var budgetCode = document.getElementById(budgetCodeField);
   var miscCS = document.getElementById(miscCSField);
   var nameCS = document.getElementById(nameCSField);
-  if ( (budgetCode) && (miscCS) && (nameCS) ) {
+  var shortNameCS = document.getElementById(shortNameCSField);
+
+  if ( (budgetCode) && (miscCS) && (nameCS) && (shortNameCS) ) {
     //determine if the miscCSField should be zeroed out and disabled based on the budget Code
     if (budgetCode.options[budgetCode.selectedIndex].text.indexOf("NOT IN BANNER") == -1) {
       if ( (miscCS.disabled == false) && (displayWarning) ) { //if the MISC field was enabled, the last choice was NOT IN BANNER, so alert if desired
@@ -872,12 +875,19 @@ function enableOrDisableBudgetFieldsBasedOnBudgetCode(budgetCodeField,miscCSFiel
       miscCS.value = "";
       nameCS.disabled = true;
       nameCS.value = "";
+      if (budgetCode.options[budgetCode.selectedIndex].text.indexOf("Cost Share") == -1) {   //Short Name is editable is Code is NiB OR Cost Share
+        shortNameCS.disabled = true;
+        shortNameCS.value = "";
+      } else {
+        shortNameCS.disabled = false;
+      }
     } else {
       if ((miscCS.disabled == true) && (displayWarning) ) {   //if the MISC field was disabled, the last choice was something other than NOT IN BANNER, so alert if desired
          alert ("You can now put values into the MISC CS and Names of 3rd Party CS fields");
       }
       miscCS.disabled = false;
       nameCS.disabled = false;
+      shortNameCS.disabled = false;
     }
   }
 }
