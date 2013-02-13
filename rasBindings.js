@@ -853,6 +853,10 @@ function setBudgetOnChangeEvents(fieldsToSum,totalField,budgetCodeField,miscCSFi
       recalculateTotals();
     };
   }
+
+  //when the page is displayed, sum up the budget and recalc totals on initial display
+  sumUpBudget(fieldsToSum,totalField);
+  recalculateTotals();
 }
 
 /**
