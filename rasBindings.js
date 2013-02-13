@@ -1134,6 +1134,7 @@ function setBillingBindings() {
 
   var billingBillable = document.getElementById('customfield_11906-1');
   var billingNonBillable = document.getElementById('customfield_11906-2');
+  var billingLog = document.getElementById('customfield_11906-3');
   var billingCycle = document.getElementById('customfield_10917');
   var sponsorCategory = document.getElementById('customfield_10902');
   var loc = document.getElementById('customfield_10918');
@@ -1152,9 +1153,16 @@ function setBillingBindings() {
       updateCycle();
       updateBill();
       updatePaym();
-      warnOnBillableAndBillingCycleIncompatibleValues();
     };
   } 
+
+  if (billingLog) {
+    billingLog.onclick=function() {
+      updateCycle();
+      updateBill();
+      updatePaym();
+    };
+  }
 
   if (billingCycle) {
     billingCycle.onchange=function() {
@@ -1220,11 +1228,11 @@ function updateCycle() {
 
   var cycle = document.getElementById('customfield_15203');
   var billingBillable = document.getElementById('customfield_11906-1');
-  var billingNonBillable = document.getElementById('customfield_11906-2');
+  //var billingNonBillable = document.getElementById('customfield_11906-2');
   var billingCycle = document.getElementById('customfield_10917');
 
   var newValue = "-1"; //set the default value to blank
-  if ( (billingBillable) && (billingNonBillable) && (cycle) && (billingCycle) ) {
+  if ( (billingBillable) && (cycle) && (billingCycle) ) {
     if (billingBillable.checked) { //Billing: BILLABLE
       if (billingCycle.options[billingCycle.selectedIndex].value == "10744") {        //Billing Cycle: 6 months from last bill/semi-annually
         newValue = "13712";  //CYCLE:6
@@ -1253,11 +1261,12 @@ function updateBill() {
   var bill = document.getElementById('customfield_15202');
   var billingBillable = document.getElementById('customfield_11906-1');
   var billingNonBillable = document.getElementById('customfield_11906-2');
+  var billingLog = document.getElementById('customfield_11906-3');
   var billingCycle = document.getElementById('customfield_10917');
   var loc = document.getElementById('customfield_10918');
 
   var newValue = "-1"; //set the default value to blank
-  if ( (bill) && (billingBillable) && (billingNonBillable) && (billingCycle) && (loc) ) {
+  if ( (bill) && (billingBillable) && (billingNonBillable) && (billingCycle) && (loc) && (billingLog) ) {
 
     if (billingBillable.checked) {           //Billing: BILLABLE
         newValue ="13711";    //BILL:Y
@@ -1265,14 +1274,16 @@ function updateBill() {
 
         if (billingCycle.options[billingCycle.selectedIndex].value == "10750") {         //Billing Cycle: LOC 
           newValue = "13708";  //BILL:1
-        } else if (billingCycle.options[billingCycle.selectedIndex].value == "10751") {  //Billing Cycle: LoG
-          newValue = "13709";  //BILL:L
         } else if (billingCycle.options[billingCycle.selectedIndex].value == "10749") {  //Billing Cycle: Advance Funds
           newValue = "13710";  //BILL:8
         } else if (loc.options[loc.selectedIndex].value != "-1") {                       //LOC# is not None
           newValue = "13708";  //BILL:1
         }
 
+    } else if (billingLog.checked) {
+      if (billingCycle.options[billingCycle.selectedIndex].value == "10751") {  //Billing Cycle: LoG
+          newValue = "13709";  //BILL:L
+        }
     }
 
     AJS.$("#customfield_15202").val(newValue);
