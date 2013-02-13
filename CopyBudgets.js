@@ -7,7 +7,7 @@
 function copyBudgets(infoBox,budget1,newBudget){
 
 	if(infoBox.check == true){
-		budget1.value = newBudget.value;
+		newBudget.value = budget1.value;
 		else{
 		newBudget.value = '';
 		}

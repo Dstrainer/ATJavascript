@@ -13,7 +13,7 @@ function subfundAvail(){
 			var field = document.getElementById(selectedFields[i]);
 			if(field != null){
 				field.onclick = function(){ //when a field from the array has been clicked, pass fields into function setFieldAvailability()
-				setFieldAvailability(subfund);
+				setFieldAvailability(subfund,selectedFields[i]);
 				}
 			}		
 	}

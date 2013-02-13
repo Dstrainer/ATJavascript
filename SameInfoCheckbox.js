@@ -13,7 +13,7 @@ sameInfoBoxes = ['customfield_11600-1','customfield_11711-1','customfield_12908-
 		field1 = document.getElementById(budget1Fields[i]);
 		field2 = document.getElementById(focusedBudget[i]);
 		checkBox = sameInfoBoxes[i];
-			if (field1 && field2 != null) {
+			if ((field1 != null) && (field2 != null)) {
 				checkBox.onchange = function(){//if checkbox is clicked copy fields from budget one to focusedBudget
 				copyBudgets(checkBox,field1,field2);
 				}
