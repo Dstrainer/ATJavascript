@@ -31,6 +31,7 @@ AJS.$(document).ready(function() {
     disableProposalNumberAndRevNumber();
     setIndirectCalcByTypeOfIndirect();
     setBillingBindings();
+	setLocationAvail();
   });
 
 });
@@ -1333,4 +1334,41 @@ function updatePaym() {
     AJS.$("#customfield_15201").val(newValue);
   }
 
+}
+/**
+*	@author dtrainer
+*	@desc enables/disables a field based upon which is checked 
+*/
+
+//passed fields from array
+function setFieldAvailability(selectedFields, fieldToKeep){
+
+	for(var i = 0; i < selectedFields.length; i++){
+	var field = document.getElementById(selectedFields[i]);
+			if ((field != null) && (selectedFields[i] != fieldToKeep)){
+					field.checked = false;
+						 //if field is not newly checked, make false
+					
+				}
+			}
+	}
+}
+/**
+*	@author dtrainer
+*	@desc adds 'On Campus' & 'Off Campus' fields for Location to array and checks if they are clicked, disabling 
+*	the remaining fields
+*/
+
+function setLocationAvail(){
+
+	locations = ['customfield_14005-1','customfield_14005-2'];
+
+		for(var i=0;locations.length;i++){
+			var field = document.getElementById(selectedFields[i]);
+			if(field != null){
+				field.onclick = function(){ //when a field from the array has been clicked, pass fields into function setFieldAvailability()
+				setFieldAvailability(locations,selectedFields[i]);
+				}
+			}
+		}
 }
