@@ -901,7 +901,7 @@ function alertIfBudgetCodeIsBlank(budgetCodeField) {
   var budgetCode = document.getElementById(budgetCodeField);
   if (budgetCode) {
     if (budgetCode.options[budgetCode.selectedIndex].value == "-1") {
-      alert("WARNING: The Budget Code for this budget has not been set!");
+      alert("WARNING: The Budget Rule Code for this budget has not been set!");
     }
   }
 }
