@@ -6,16 +6,18 @@
 *	the remaining fields
 */
 
-function classUncontrolledAvail(){
+function setClassUncontrolledAvail(){
 
 	classUncontrolled = ['customfield_14100-1','customfield_14100-2'];
-	for(var i=0;indirectInfo.length;i++){
-			var field = document.getElementById(selectedFields[i]);
-			if(field != null){
-				field.onclick = function(){ //when a field from the array has been clicked, pass fields into function setFieldAvailability()
-				setFieldAvailability(classUncontrolled);
-				}
+	
+	for(var i=0;i < classUncontrolled.length;i++){
+		var field = document.getElementById(classUncontrolled[i]);
+			var fieldToKeep = classUncontrolled[i];
+		if(field != null){
+			field.onclick = function(){ //when a field from the array has been clicked, pass fields into function setFieldAvailability()
+			setFieldAvailability(classUncontrolled,this);
 			}
+		}
 	}
 }
 </script>

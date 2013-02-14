@@ -5,18 +5,18 @@
 *	@desc adds 'On Campus' & 'Off Campus' fields for Location to array and checks if they are clicked, disabling 
 *	the remaining fields
 */
+function setLocationAvail(){
 
-function locationAvail(){
+	var locations = ['customfield_14005-1','customfield_14005-2','customfield_14005-3'];
 
-	locations = ['customfield_14005-1','customfield_14005-2'];
-
-		for(var i=0;locations.length;i++){
-			var field = document.getElementById(selectedFields[i]);
-			if(field != null){
-				field.onclick = function(){ //when a field from the array has been clicked, pass fields into function setFieldAvailability()
-				setFieldAvailability(locations,selectedFields[i]);
-				}
-			}
-		}
+	for(var i=0;i < locations.length;i++){
+	  var field = document.getElementById(locations[i]);
+          var fieldToKeep = locations[i];
+	  if(field){
+	    field.onclick = function(){ 
+	      setFieldAvailability(locations,this);
+	    };
+	  }
+	}
 }
 </script>

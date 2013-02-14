@@ -1,0 +1,288 @@
+[33mcommit e84c7df968743f0bfa708cc20aee94e879db7915[m
+Author: unknown <dtrainer@RABIN.research.vt.edu>
+Date:   Wed Feb 13 17:58:52 2013 -0500
+
+    Changes 2/13/13
+
+[33mcommit 887b35e3ed34075ffd5841814f7bd8b979fc8d0c[m
+Author: unknown <dtrainer@RABIN.research.vt.edu>
+Date:   Wed Feb 13 13:33:37 2013 -0500
+
+    Adding location exculsitivity function
+
+[33mcommit 7b9f3d3f70099182692a4c9a504a8de316c0d0fa[m
+Merge: 452ac3d 9f11ff1
+Author: unknown <dtrainer@RABIN.research.vt.edu>
+Date:   Wed Feb 13 13:30:57 2013 -0500
+
+    Merge https://svn.db.vt.edu:6443/rhode/IT/ES/RAS/agreements/jsbindings
+
+[33mcommit 9f11ff123a2af50897490db977f8520cef836e82[m
+Author: Lucas <lcovey@vt.edu>
+Date:   Wed Feb 13 12:39:12 2013 -0500
+
+    changing basis for binding BILL:L
+
+[33mcommit 6099c1447f8224c0b3a58c7c4c3116d6d044365c[m
+Author: Lucas <lcovey@vt.edu>
+Date:   Wed Feb 13 12:23:30 2013 -0500
+
+    calculate budget totals as the page loads
+
+[33mcommit 452ac3dcda3d2b55881312c715bf206b75de4efe[m
+Author: unknown <dtrainer@RABIN.research.vt.edu>
+Date:   Wed Feb 13 11:29:30 2013 -0500
+
+    Adding used code
+
+[33mcommit 92c964e29668fa956725654f3f1f6f497e57f092[m
+Author: unknown <dtrainer@RABIN.research.vt.edu>
+Date:   Wed Feb 13 11:27:31 2013 -0500
+
+    Readme Commit
+
+[33mcommit 7712c82e032d1db72e614d4396b97a48e76a84bd[m
+Author: Lucas <lcovey@vt.edu>
+Date:   Wed Feb 13 09:16:33 2013 -0500
+
+    warning alert should say Budget Rule Code not Budget Code
+
+[33mcommit ea7c90d17ad40bbc1f96f9528fd04b35b72d1878[m
+Author: Lucas <lcovey@vt.edu>
+Date:   Tue Feb 12 14:21:39 2013 -0500
+
+    cost share fund short name has been added to the bindings for the budget breakdown
+
+[33mcommit 0c72b4879b906732963d118af155ea3afabf2353[m
+Author: Lucas <lcovey@vt.edu>
+Date:   Tue Feb 12 13:41:58 2013 -0500
+
+    added LOC to the billing binds
+
+[33mcommit bbd8469ff6d7ed5355a8775daca86eca108e7344[m
+Author: Lucas <lcovey@vt.edu>
+Date:   Tue Feb 12 11:00:25 2013 -0500
+
+    binding PAYM, BILL, and CYCLE to the values in BILLING, BILLING CYCLE, and SPONSOR CATEGORY
+
+[33mcommit 102adcd152a85430e36cd9973ed8107b71cbc24d[m
+Author: Lucas <lcovey@vt.edu>
+Date:   Tue Feb 12 07:39:13 2013 -0500
+
+    refactored the binding of budget code to misc/name cs fields
+
+[33mcommit 4c03d269e9b8af4699a6768a31749d3589d4afde[m
+Author: Lucas <lcovey@vt.edu>
+Date:   Mon Feb 11 13:23:14 2013 -0500
+
+    warning if budget values are entered while their budget code remains unset
+
+[33mcommit 5ab9466d1cce4861bcab0bf700ad8342e3ed66cc[m
+Author: Lucas <lcovey@vt.edu>
+Date:   Mon Feb 11 13:17:29 2013 -0500
+
+    names of 3rd party CS is now bound to budget code just as misc cs was
+
+[33mcommit 822e3393882e56b8bea66cf932064dc0f7b795a2[m
+Author: Lucas <lcovey@vt.edu>
+Date:   Mon Feb 11 13:01:43 2013 -0500
+
+    binding indirect calc to type of indirect
+
+[33mcommit d0f1817e16f58ada28471615dd5e034fc32c26bb[m
+Author: Lucas <lcovey@vt.edu>
+Date:   Mon Feb 11 12:25:37 2013 -0500
+
+    disabling proposal/rev number combo on AS - General Info transition
+
+[33mcommit 233ad4124862890042319c93fb5bc690023b999b[m
+Author: Lucas <lcovey@vt.edu>
+Date:   Mon Feb 11 10:37:53 2013 -0500
+
+    budget bugfixes now in place.  misc cs cannot be chosen until the code is NOT IN BANNER
+
+[33mcommit 7a2a71037dc855bd8fe05546424a1b0b3ecfac16[m
+Author: Lucas <lcovey@vt.edu>
+Date:   Fri Feb 8 13:40:08 2013 -0500
+
+    binding deferred acct code to bill format
+
+[33mcommit fccc5110d6e2ae82e0f78bf64f1351a840137d0f[m
+Author: Lucas <lcovey@vt.edu>
+Date:   Fri Feb 8 10:24:06 2013 -0500
+
+    adding maroon color to labels for 3rd Party Cost Share names
+
+[33mcommit 317c71aa62a1e158d8c0f93d649421be1282719f[m
+Author: Lucas <lcovey@vt.edu>
+Date:   Fri Feb 8 10:11:40 2013 -0500
+
+    Deferred Account has its none set to blank
+
+[33mcommit 16741479726663214b90217db19bc26fac098abd[m
+Author: Lucas <lcovey@vt.edu>
+Date:   Thu Feb 7 12:34:16 2013 -0500
+
+    now capable of setting a default assignee based on the transition screen we're on
+
+[33mcommit 7fa69a1c4071b2b1f3df3bc290be74ba90e82d08[m
+Author: Lucas <lcovey@vt.edu>
+Date:   Thu Feb 7 10:01:27 2013 -0500
+
+    setting none to blank for type of other agreement and discovery domain dropdowns
+
+[33mcommit d77f2cfa08d94bdbb7f59c91c5ddfde10d973bd8[m
+Author: Lucas <lcovey@vt.edu>
+Date:   Thu Feb 7 08:33:50 2013 -0500
+
+    showing alert when creating a COI review
+
+[33mcommit ea56879c756eae5ec249974a8f2baaece7abb35a[m
+Author: Lucas <lcovey@vt.edu>
+Date:   Thu Feb 7 08:04:24 2013 -0500
+
+    RCR should be maroon as well
+
+[33mcommit bc6473646ee8f44eb1e053c5f907d8e036b59936[m
+Author: Lucas <lcovey@vt.edu>
+Date:   Thu Feb 7 08:02:33 2013 -0500
+
+    assignee on issue create is now set to show Unassigned instead of Automatic.  Since Automatic is unassigned already, all we are doing is making the screen read a bit better for users
+
+[33mcommit 8fafbdc0d8cb17e070d60724789510a1bc5ccf96[m
+Author: Lucas <lcovey@vt.edu>
+Date:   Wed Feb 6 08:11:01 2013 -0500
+
+    preaward admin user picker has been swapped for a standard userpicker, so the field key has been updated
+
+[33mcommit 8b02f0b1e0841ea16ffb22fdc1c33bd2974388e8[m
+Author: Lucas <lcovey@vt.edu>
+Date:   Wed Feb 6 07:32:20 2013 -0500
+
+    add misc field to totals for budgets 8-10, and fixed budgetcode onchange array loop to fire on all
+
+[33mcommit 4bff636815cd23001b7823db3c5ed85a2f82bc6c[m
+Author: Lucas <lcovey@vt.edu>
+Date:   Tue Feb 5 14:47:20 2013 -0500
+
+    two more fields need to be colored
+
+[33mcommit d636f98633894cfd50b1b0e436e5ec99aaf700fd[m
+Author: Lucas <lcovey@vt.edu>
+Date:   Tue Feb 5 14:15:42 2013 -0500
+
+    budgets are now calculated entirely in this javascript file
+
+[33mcommit ac0f1c7ecfe598db746863f1df7b418c71a17112[m
+Author: Lucas <lcovey@vt.edu>
+Date:   Mon Feb 4 11:22:18 2013 -0500
+
+    adding default summary strings for budget and vendor-subrecipient form subtasks
+
+[33mcommit 09d08d8ab80848a0807b64fea61e84b95f5c7bd4[m
+Author: Lucas <lcovey@vt.edu>
+Date:   Mon Feb 4 10:11:07 2013 -0500
+
+    other agreements now have their own summary string
+
+[33mcommit 0ec03b6e434fe2b66e018b3ee5844fe8aa3175f1[m
+Author: Lucas <lcovey@vt.edu>
+Date:   Mon Feb 4 09:45:08 2013 -0500
+
+    added default summary strings for subtasks
+
+[33mcommit 898e5ed0293e3c94d8f2ba0c139f17fc77a50fc0[m
+Author: Lucas <lcovey@vt.edu>
+Date:   Fri Feb 1 14:37:24 2013 -0500
+
+    added color to the legends associated with checkboxes
+
+[33mcommit 81bddf431039e1e4eb789876bcb8db16b633250f[m
+Author: Lucas <lcovey@vt.edu>
+Date:   Fri Feb 1 13:39:00 2013 -0500
+
+    added color to all non-checkbox fields where applicable
+
+[33mcommit 169f26dcf0b514b75dc64803e35d2332bd56a678[m
+Author: Lucas <lcovey@vt.edu>
+Date:   Thu Jan 31 12:31:20 2013 -0500
+
+    PAN system no longer expects the preAwardAdmin parameter to be passed
+
+[33mcommit 49cd4d2e4483588014c28b3882ccc7ce6593d3e2[m
+Author: Lucas <lcovey@vt.edu>
+Date:   Thu Jan 31 12:27:20 2013 -0500
+
+    adding a nullcheck to the Pan Initiation description just to be safe.  If the field is there, its description is there, but better safe than sorry
+
+[33mcommit 8bd91646cd631ea38ec1b3b75e4230704b708875[m
+Author: Lucas <lcovey@vt.edu>
+Date:   Thu Jan 31 12:19:51 2013 -0500
+
+    RAS would like the description for PAN Initiated to be before the actual checkbox so that the screen reads better
+
+[33mcommit 38f4c1266756360f73e17951d48b6d159db020de[m
+Author: Lucas <lcovey@vt.edu>
+Date:   Thu Jan 31 09:22:08 2013 -0500
+
+    instead of sending the entire return URL to the PAN system, we now just send the jira issue key
+
+[33mcommit b7ff31c2a7bcdf7a365c8e8a736af5e737d10e89[m
+Author: Lucas <lcovey@vt.edu>
+Date:   Thu Jan 31 09:10:51 2013 -0500
+
+    now handling clinical trials proposal attribute
+
+[33mcommit 6947434db3b1fbcef1f70a7e3cba8be56a900276[m
+Author: Lucas <lcovey@vt.edu>
+Date:   Wed Jan 30 12:33:12 2013 -0500
+
+    creating a link to the PAN system with the query string determined by the values of particular proposal fields
+
+[33mcommit d988a170516f0398e04692b1b7701be1a77e9a3a[m
+Author: Lucas <lcovey@vt.edu>
+Date:   Tue Jan 29 13:03:44 2013 -0500
+
+    proposal attributes are now setting checkboxes and whatnot based on their values
+
+[33mcommit 3469725af3f55b349d654512c9431745ab6d8f38[m
+Author: Lucas <lcovey@vt.edu>
+Date:   Mon Jan 28 14:25:23 2013 -0500
+
+    department contacts and project personnel should stomp on previously-defined values
+
+[33mcommit f52ffb3952597b9a5c82b12e9a08c1c3bbbafd49[m
+Author: Lucas <lcovey@vt.edu>
+Date:   Mon Jan 28 12:19:52 2013 -0500
+
+    certain field's should have their labels set to a different color
+
+[33mcommit 812de246544f95faa0159433d8f6eac1fa938381[m
+Author: Lucas <lcovey@vt.edu>
+Date:   Tue Jan 22 15:34:34 2013 -0500
+
+    added summary auto-pop for Solvency Checks
+
+[33mcommit 65e97e79d6f49dd86787b996aa042ded7d634ff3[m
+Author: Lucas <lcovey@vt.edu>
+Date:   Wed Jan 16 15:55:31 2013 -0500
+
+    summary should not respect what's there; override with the generated value
+
+[33mcommit 08e5a652fa5b3d37db26c7f8279b95253f7329da[m
+Author: Lucas <lcovey@vt.edu>
+Date:   Wed Jan 16 15:37:12 2013 -0500
+
+    preaward admin can only be one person at a time.
+
+[33mcommit 1e6eafb6e01cb8124408cd0da9cd108130606794[m
+Author: Lucas <lcovey@vt.edu>
+Date:   Wed Jan 16 10:43:46 2013 -0500
+
+    co-pis are now added to the project personnel field
+
+[33mcommit 23bfddc4cd4d3526b372b5f2c15c0002fc512fb7[m
+Author: Lucas <lcovey@vt.edu>
+Date:   Fri Jan 11 13:35:11 2013 -0500
+
+    initial commit

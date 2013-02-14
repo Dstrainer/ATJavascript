@@ -5,17 +5,18 @@
 *	the remaining fields
 */
 
-function subfundAvail(){
+function setSubfundAvail(){
 
 	subfund = ['customfield_13500-1','customfield_13501-1'];
 	
-	for(var i=0;indirectInfo.length;i++){
-			var field = document.getElementById(selectedFields[i]);
-			if(field != null){
-				field.onclick = function(){ //when a field from the array has been clicked, pass fields into function setFieldAvailability()
-				setFieldAvailability(subfund,selectedFields[i]);
-				}
-			}		
+	for(var i=0;i < subfund.length;i++){
+		var field = document.getElementById(subfund[i]);
+			var fieldToKeep = subfund[i];
+		if(field != null){
+			field.onclick = function(){ 
+			setFieldAvailability(subfund,this);
+			};
+		}		
 	}
 }
 </script>

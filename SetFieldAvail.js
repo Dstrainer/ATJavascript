@@ -17,6 +17,6 @@ function setFieldAvailability(selectedFields, fieldToKeep){
 				}
 			}
 	}
-}
+
 
 </script>

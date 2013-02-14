@@ -28,10 +28,16 @@ AJS.$(document).ready(function() {
     //hideOZTabs();
     //showFullName();
     setDeferredAcctCodeByBillFormat();
-    disableProposalNumberAndRevNumber();
+    //disableProposalNumberAndRevNumber();
     setIndirectCalcByTypeOfIndirect();
     setBillingBindings();
-	setLocationAvail();
+    setLocationAvail();
+    setSubfundAvail();
+    setIndirectInfoAvail();
+    setFcoiAvail();
+    setClassUncontrolledAvail();
+    determinePDFVisibility();
+    readOnlyChecklistSummary();
   });
 
 });
@@ -1007,8 +1013,8 @@ function warnOnCOICreate() {
       }
     }
   }
-}
 
+}
 /**
  * @desc set default assignee for various transitions
  * @author lcovey
@@ -1139,13 +1145,16 @@ function setBillingBindings() {
   var billingCycle = document.getElementById('customfield_10917');
   var sponsorCategory = document.getElementById('customfield_10902');
   var loc = document.getElementById('customfield_10918');
- 
+
+  var billingCheckboxGroup = ['customfield_11906-1','customfield_11906-2','customfield_11906-3']; 
+
   if (billingBillable) {
     billingBillable.onclick=function() {
       updateCycle();
       updateBill();
       updatePaym();
       warnOnBillableAndBillingCycleIncompatibleValues();
+      setFieldAvailability(billingCheckboxGroup,this);
     };
   }
  
@@ -1154,6 +1163,7 @@ function setBillingBindings() {
       updateCycle();
       updateBill();
       updatePaym();
+      setFieldAvailability(billingCheckboxGroup,this);
     };
   } 
 
@@ -1162,6 +1172,7 @@ function setBillingBindings() {
       updateCycle();
       updateBill();
       updatePaym();
+      setFieldAvailability(billingCheckboxGroup,this);
     };
   }
 
@@ -1335,40 +1346,154 @@ function updatePaym() {
   }
 
 }
+
 /**
 *	@author dtrainer
 *	@desc enables/disables a field based upon which is checked 
 */
-
-//passed fields from array
-function setFieldAvailability(selectedFields, fieldToKeep){
+function setFieldAvailability(selectedFields, keptField){
 
 	for(var i = 0; i < selectedFields.length; i++){
-	var field = document.getElementById(selectedFields[i]);
-			if ((field != null) && (selectedFields[i] != fieldToKeep)){
-					field.checked = false;
-						 //if field is not newly checked, make false
-					
-				}
-			}
+	  var field = document.getElementById(selectedFields[i]);
+          if ( (field) && (keptField) && (field.value != keptField.value) ){
+		field.checked = false;
+   	  } else {
+                field.checked = true;
+          }
 	}
 }
+
 /**
 *	@author dtrainer
-*	@desc adds 'On Campus' & 'Off Campus' fields for Location to array and checks if they are clicked, disabling 
+*	@desc adds 'On Campus', 'Off Campus', & 'Adjacent' fields for Location to array and checks if they are clicked, disabling 
 *	the remaining fields
 */
-
 function setLocationAvail(){
 
-	locations = ['customfield_14005-1','customfield_14005-2'];
+	var locations = ['customfield_14005-1','customfield_14005-2','customfield_14005-3'];
 
-		for(var i=0;locations.length;i++){
-			var field = document.getElementById(selectedFields[i]);
-			if(field != null){
-				field.onclick = function(){ //when a field from the array has been clicked, pass fields into function setFieldAvailability()
-				setFieldAvailability(locations,selectedFields[i]);
-				}
-			}
+	for(var i=0;i < locations.length;i++){
+	  var field = document.getElementById(locations[i]);
+          var fieldToKeep = locations[i];
+	  if(field){
+	    field.onclick = function(){ 
+	      setFieldAvailability(locations,this);
+	    };
+	  }
+	}
+}
+
+/**
+*	@author dtrainer
+*	@desc adds 'Create Subfund' or 'Increase Existing Subfund' fields for Subfund to array and checks if they are clicked, disabling 
+*	the remaining fields
+*/
+function setSubfundAvail(){
+
+	subfund = ['customfield_13500-1','customfield_13501-1'];
+	
+	for(var i=0;i < subfund.length;i++){
+		var field = document.getElementById(subfund[i]);
+			var fieldToKeep = subfund[i];
+		if(field != null){
+			field.onclick = function(){ 
+			setFieldAvailability(subfund,this);
+			};
+		}		
+	}
+}
+
+/**
+*	@author dtrainer
+*	@desc adds 'NCR', 'CAER', & 'Full Indirect' fields for Indirect Info to array and checks if they are clicked, disabling 
+*	the remaining fields
+*/
+function setIndirectInfoAvail(){
+
+	indirectInfo = ['customfield_10932-1','customfield_10932-2','customfield_10932-3'];
+	
+	for(var i=0;i < indirectInfo.length;i++){
+		var field = document.getElementById(indirectInfo[i]);
+			var fieldToKeep = indirectInfo[i];
+		if(field != null){
+			field.onclick = function(){ 
+			setFieldAvailability(indirectInfo,this);
+			};
 		}
+	}
+}
+
+/**
+*	@author dtrainer
+*	@desc adds 'PHS' & 'COI Other' fields for FCOI to array and checks if they are clicked, disabling 
+*	the remaining fields
+*/
+function setFcoiAvail(){
+
+	fcoi = ['customfield_11902-1','customfield_11902-2'];
+	
+	for(var i=0;i < fcoi.length;i++){
+		var field = document.getElementById(fcoi[i]);
+			var fieldToKeep = fcoi[i];	
+		if(field != null){
+			field.onclick = function(){ //when a field from the array has been clicked, pass fields into function setFieldAvailability()
+			setFieldAvailability(fcoi,this);
+			};
+		}
+	}
+}
+
+/**
+*	@author dtrainer
+*	@desc adds 'Yes' & 'No' fields for Classified Uncontrolled to array and checks if they are clicked, disabling 
+*	the remaining fields
+*/
+function setClassUncontrolledAvail(){
+
+	classUncontrolled = ['customfield_14100-1','customfield_14100-2'];
+	
+	for(var i=0;i < classUncontrolled.length;i++){
+		var field = document.getElementById(classUncontrolled[i]);
+			var fieldToKeep = classUncontrolled[i];
+		if(field != null){
+			field.onclick = function(){ //when a field from the array has been clicked, pass fields into function setFieldAvailability()
+			setFieldAvailability(classUncontrolled,this);
+			};
+		}
+	}
+}
+
+function determinePDFVisibility() {
+
+  var issueType = AJS.$(document).find("span#type-val").text();
+  if (issueType) {
+    if(issueType.indexOf("Funded Agreement with Proposal") == -1 && 
+       issueType.indexOf("Funded Modification with Proposal") == -1 && 
+       issueType.indexOf("LOG - Funded Agreement") == -1 && 
+       issueType.indexOf("LOG - Funded Modification") == -1) {
+      AJS.$(document).find("li.aui-list-item a[href*='midori']").hide();
+    } else {
+      AJS.$(document).find("li.aui-list-item a[href*='midori']").attr('target', '_blank');
+    }
+  
+    if(issueType.indexOf("Funded Agreement with Proposal") == -1 && issueType.indexOf("Funded Modification with Proposal") == -1) {
+      AJS.$(document).find("li.aui-list-item a[href*='midori.jira.plugin.pdfview:pdf-issue-view-signature']").hide();
+    }
+  }
+}
+
+/**
+*	@author dtrainer
+*	@desc disables functionality on 'AS-Checklist Summary' screen, making it read-only. 
+*	User can still click cancel.
+*/
+function readOnlyChecklistSummary(){
+
+	var transitionForm = document.getElementById('issue-workflow-transition');
+	var transitionSubmitButton = document.getElementById('issue-workflow-transition-submit'); 
+	if ((transitionForm) && (transitionSubmitButton)){
+		if (transitionSubmitButton.value.indexOf("AS - Checklist Summary") != -1) {
+			transitionSubmitButton.disabled=true;
+		}
+	}
 }
