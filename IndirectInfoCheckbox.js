@@ -6,7 +6,7 @@
 */
 
 function setIndirectInfoAvail(){
-	
+
 	indirectInfo = ['customfield_10932-1','customfield_10932-2','customfield_10932-3'];
 	
 	for(var i=0;i < indirectInfo.length;i++){

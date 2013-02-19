@@ -16,7 +16,7 @@ function setClassUncontrolledAvail(){
 		if(field != null){
 			field.onclick = function(){ //when a field from the array has been clicked, pass fields into function setFieldAvailability()
 			setFieldAvailability(classUncontrolled,this);
-			}
+			};
 		}
 	}
 }

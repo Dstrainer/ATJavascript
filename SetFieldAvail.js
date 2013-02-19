@@ -6,17 +6,15 @@
 */
 
 //passed fields from array
-function setFieldAvailability(selectedFields, fieldToKeep){
+function setFieldAvailability(selectedFields, keptField){
 
 	for(var i = 0; i < selectedFields.length; i++){
-	var field = document.getElementById(selectedFields[i]);
-			if ((field != null) && (selectedFields[i] != fieldToKeep)){
-					field.checked = false;
-						 //if field is not newly checked, make false
-					
-				}
-			}
+	  var field = document.getElementById(selectedFields[i]);
+          if ( (field) && (keptField) && (field.value != keptField.value) ){
+		field.checked = false;
+          }
 	}
+}
 
 
 </script>

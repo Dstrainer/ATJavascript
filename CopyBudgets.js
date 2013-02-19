@@ -4,17 +4,15 @@
 *	@author dtrainer
 *	@description copies fields to next budget based on checkbox click
 */
-function copyBudgets(infoBox,budget1,newBudget){
+function copyBudgetFields(budget1,newBudget){
 
-	if(infoBox.check == true){
-		newBudget.value = budget1.value;
-		else{
-		newBudget.value = '';
-		}
-	}
+  for(var i = 0; i < budget1.length; i++){
+    budget1Field = document.getElementById(budget1[i]);
+    newBudgetField = document.getElementById(newBudget[i]);
+    if ( (budget1Field) && (newBudgetField) ) {  
+      newBudgetField.value = budget1Field.value;
+    }
+  }
 }
-
-
-
 
 </script>

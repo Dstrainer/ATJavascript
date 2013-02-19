@@ -20,4 +20,5 @@ function setFcoiAvail(){
 		}
 	}
 }
+
 </script>

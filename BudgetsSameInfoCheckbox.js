@@ -5,7 +5,7 @@
 */
 
 function copyBudget1Fields(){
-	//add fields that are used in copying into array
+	
 	budget1 = ['customfield_10500','customfield_10212','customfield_10105','customfield_10003',
 			   'customfield_10927','customfield_11007','customfield_11008'];
 	budget2 = ['customfield_12000','customfield_12007','customfield_11708','customfield_11709',
@@ -27,18 +27,17 @@ function copyBudget1Fields(){
 	budget10 = ['customfield_13004','customfield_13011','customfield_13105','customfield_13112',
 				'customfield_13120','customfield_13135','customfield_13142'];
 			
-	setFieldsOnChangeEvents(budget1,budget2);
-	setFieldsOnChangeEvents(budget1,budget3);
-	setFieldsOnChangeEvents(budget1,budget4);
-	setFieldsOnChangeEvents(budget1,budget5);
-	setFieldsOnChangeEvents(budget1,budget6);
-	setFieldsOnChangeEvents(budget1,budget7);
-	setFieldsOnChangeEvents(budget1,budget8);
-	setFieldsOnChangeEvents(budget1,budget9);
-	setFieldsOnChangeEvents(budget1,budget10);
+	setFieldsOnChangeEvents(budget1,budget2,'customfield_11600-1');
+	setFieldsOnChangeEvents(budget1,budget3,'customfield_11711-1');
+	setFieldsOnChangeEvents(budget1,budget4,'customfield_12908-1');
+	setFieldsOnChangeEvents(budget1,budget5,'customfield_12909-1');
+	setFieldsOnChangeEvents(budget1,budget6,'customfield_12910-1');
+	setFieldsOnChangeEvents(budget1,budget7,'customfield_12911-1');
+	setFieldsOnChangeEvents(budget1,budget8,'customfield_12913-1');
+	setFieldsOnChangeEvents(budget1,budget9,'customfield_12914-1');
+	setFieldsOnChangeEvents(budget1,budget10,'customfield_12915-1');
 
 
 }
-
 
 <script>
